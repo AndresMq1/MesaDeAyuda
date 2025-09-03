@@ -1,0 +1,21 @@
+package Com.Helpdesk.exeMesaDeAyuda.entidades;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Generated;
+
+@Entity
+@Table(name = "Usuarios")
+@Data
+public class Usuarios {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idUsuario;
+
+    @Column(name = "nombre", nullable = false , length = 100)
+    private String nombre;
+
+    @Column(name = "email", nullable = false)
+    private String email;
+}
