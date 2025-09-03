@@ -22,7 +22,7 @@ public class Comentarios {
     // aca esta el Id_agente
     @ManyToOne
     @JoinColumn(name = "IdCategoria")
-    private  Categorias categoria;
+    private  Agentes agentes;
 
     @Column(name = "mensaje", nullable = false, length = 255)
     private String mensaje;

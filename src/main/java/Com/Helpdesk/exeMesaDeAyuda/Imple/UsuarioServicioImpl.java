@@ -1,34 +1,63 @@
 package Com.Helpdesk.exeMesaDeAyuda.Imple;
 
+import Com.Helpdesk.exeMesaDeAyuda.Repositorio.UsuarioRepositorio;
 import Com.Helpdesk.exeMesaDeAyuda.Servicios.UsuarioServicio;
 import Com.Helpdesk.exeMesaDeAyuda.dto.UsuariosDTO;
+import Com.Helpdesk.exeMesaDeAyuda.entidades.Usuarios;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioServicioImpl implements UsuarioServicio {
 
+
+    private final UsuarioRepositorio usuarioRepositorio;
+    private final ModelMapper modelMapper;
+
+    public UsuarioServicioImpl(UsuarioRepositorio usuarioRepositorio, ModelMapper modelMapper) {
+        this.usuarioRepositorio = usuarioRepositorio;
+        this.modelMapper = modelMapper;
+    }
+
+
     @Override
     public List<UsuariosDTO> getAllUsuarios() {
-        return null;
+        List<Usuarios> listarUsuarios = usuarioRepositorio.findAll();
+        return listarUsuarios.stream().map(u -> modelMapper.map(u, UsuariosDTO.class)).collect(Collectors.toList());
     }
 
     @Override
     public UsuariosDTO getUsuarioById(Long id){
-        return null;
+        Usuarios usuario = usuarioRepositorio.findById(id).orElseThrow(() -> new RuntimeException("Usuario no encontrado" + id) );
+        return modelMapper.map(usuario, UsuariosDTO.class);
     }
     @Override
     public UsuariosDTO createUsuario(UsuariosDTO usuariosDTO) {
-        return null;
+        Usuarios usuario = modelMapper.map(usuariosDTO, Usuarios.class);
+        usuario = usuarioRepositorio.save(usuario);
+        return modelMapper.map(usuario, UsuariosDTO.class);
     }
     @Override
-    public UsuariosDTO updateUsuario(UsuariosDTO usuariosDTO) {
-        return null;
+    public UsuariosDTO updateUsuario(Long id,UsuariosDTO usuariosDTO) {
+        Usuarios usuario = usuarioRepositorio.findById(id).orElseThrow(() -> new RuntimeException("Usuario no encontrado" + id) );
+        modelMapper.map(usuariosDTO, usuario);
+
+        Usuarios usuarios = usuarioRepositorio.save(usuario);
+
+        return  modelMapper.map(usuarios, UsuariosDTO.class);
     }
 
     @Override
     public boolean deleteUsuario(Long id) {
-        return false;
+        if(!usuarioRepositorio.existsById(id)){
+            throw new RuntimeException("Usuario no encontrado" + id);}
+        usuarioRepositorio.deleteById(id);
+        return true;
     }
+
+
 }

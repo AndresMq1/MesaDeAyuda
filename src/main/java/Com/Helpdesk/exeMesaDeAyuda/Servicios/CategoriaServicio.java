@@ -8,7 +8,7 @@ public interface CategoriaServicio {
     List<CategoriasDTO> getAllCategorias();
     CategoriasDTO getCategoriaById(Long id);
     CategoriasDTO createCategoria(CategoriasDTO categoriasDTO);
-    CategoriasDTO updateCategoria(CategoriasDTO categoriasDTO);
+    CategoriasDTO updateCategoria(Long id,CategoriasDTO categoriasDTO);
     boolean deleteCategoria(Long id);
 
 }
