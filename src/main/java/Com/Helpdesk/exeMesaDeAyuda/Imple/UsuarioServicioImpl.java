@@ -6,6 +6,7 @@ import Com.Helpdesk.exeMesaDeAyuda.dto.UsuariosDTO;
 import Com.Helpdesk.exeMesaDeAyuda.entidades.Usuarios;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +16,13 @@ import java.util.stream.Collectors;
 public class UsuarioServicioImpl implements UsuarioServicio {
 
 
+    private final PasswordEncoder passwordEncoder;
     private final UsuarioRepositorio usuarioRepositorio;
     private final ModelMapper modelMapper;
 
-    public UsuarioServicioImpl(UsuarioRepositorio usuarioRepositorio, ModelMapper modelMapper) {
+    public UsuarioServicioImpl(PasswordEncoder passwordEncoder ,UsuarioRepositorio usuarioRepositorio, ModelMapper modelMapper) {
         this.usuarioRepositorio = usuarioRepositorio;
+        this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
     }
 
@@ -36,10 +39,11 @@ public class UsuarioServicioImpl implements UsuarioServicio {
         return modelMapper.map(usuario, UsuariosDTO.class);
     }
     @Override
-    public UsuariosDTO createUsuario(UsuariosDTO usuariosDTO) {
+    public boolean createUsuario(UsuariosDTO usuariosDTO) {
         Usuarios usuario = modelMapper.map(usuariosDTO, Usuarios.class);
-        usuario = usuarioRepositorio.save(usuario);
-        return modelMapper.map(usuario, UsuariosDTO.class);
+        usuario.setPassword(passwordEncoder.encode(usuariosDTO.getPassword()));
+        usuarioRepositorio.save(usuario);
+        return true;
     }
     @Override
     public UsuariosDTO updateUsuario(Long id,UsuariosDTO usuariosDTO) {

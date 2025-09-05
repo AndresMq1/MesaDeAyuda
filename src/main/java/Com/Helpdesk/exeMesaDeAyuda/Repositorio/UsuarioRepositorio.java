@@ -1,10 +1,11 @@
 package Com.Helpdesk.exeMesaDeAyuda.Repositorio;
 
+import Com.Helpdesk.exeMesaDeAyuda.dto.UsuariosDTO;
 import Com.Helpdesk.exeMesaDeAyuda.entidades.Usuarios;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UsuarioRepositorio extends JpaRepository<Usuarios, Long> {
-
+    public Usuarios findByEmail(String email);
 }

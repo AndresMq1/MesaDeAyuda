@@ -18,4 +18,8 @@ public class Usuarios {
 
     @Column(name = "email", nullable = false)
     private String email;
+
+    private String password;
+
+    private String rol;
 }

@@ -8,7 +8,7 @@ public interface UsuarioServicio {
 
     List<UsuariosDTO> getAllUsuarios();
     UsuariosDTO getUsuarioById(Long id);
-    UsuariosDTO createUsuario(UsuariosDTO usuariosDTO);
+    boolean createUsuario(UsuariosDTO usuariosDTO);
     UsuariosDTO updateUsuario(Long id,UsuariosDTO usuariosDTO);
     boolean deleteUsuario(Long id);
 

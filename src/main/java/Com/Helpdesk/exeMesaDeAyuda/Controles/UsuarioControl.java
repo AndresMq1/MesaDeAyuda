@@ -23,17 +23,28 @@ public class UsuarioControl {
         model.addAttribute("users",listarUsuario);
         return "lista";
     }
-    @PostMapping("/crear")
+
+    @GetMapping("/registro")
+    public String registro(Model model){
+        model.addAttribute("usuario", new UsuariosDTO());
+        return "registro";
+    }
+
+    @PostMapping("/registro")
     public String crear(@ModelAttribute UsuariosDTO usuariosDTO){
+        System.out.println(usuariosDTO.getEmail());
+        System.out.println(usuariosDTO.getPassword());
+        System.out.println(usuariosDTO.getNombre());
+        System.out.println(usuariosDTO.getRol());
         usuarioServicio.createUsuario(usuariosDTO);
         return "redirect:/Usuarios/listar";
     }
 
-    @GetMapping("/crear")
+    /*@GetMapping("/crear")
     public String crear(Model model){
         model.addAttribute("usuario", new UsuariosDTO());
         return "form";
-    }
+    }*/
 
     @GetMapping("/editar/{id}")
     public String  editar(@PathVariable Long id, Model model){
@@ -51,5 +62,8 @@ public class UsuarioControl {
         usuarioServicio.deleteUsuario(id);
         return "redirect:/Usuarios/listar";
     }
-
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
 }
