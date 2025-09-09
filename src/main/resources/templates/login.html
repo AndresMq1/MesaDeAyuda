@@ -1,21 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesa de Ayuda - Iniciar Sesión</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Updated fonts to match welcome page style -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'space-grotesk': ['Space Grotesk', 'sans-serif'],
+                        'dm-sans': ['DM Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#0891b2',
+                        secondary: '#06b6d4',
+                        accent: '#f97316',
+                        destructive: '#dc2626',
+                        card: '#f0fdff',
+                        input: '#f0fdff',
+                        border: '#e2e8f0',
+                        foreground: '#1e293b',
+                        muted: '#64748b',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-<form th:action="@{/login}" method="post">
-    <label>Email</label>
-    <input type="email" name="email"/>
+<body class="min-h-screen bg-gradient-to-br from-cyan-50 via-blue-50 to-slate-50 flex items-center justify-center p-4">
+<div class="w-full max-w-md">
+    <!-- Header Section -->
+    <div class="text-center mb-4">
+        <!-- Updated icon and colors to match welcome page style -->
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full mb-4 shadow-lg">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+            </svg>
+        </div>
+        <!-- Updated typography to use Space Grotesk -->
+        <h1 class="text-3xl font-bold text-foreground font-space-grotesk mb-2">Mesa de Ayuda</h1>
+        <p class="text-muted font-dm-sans">Accede a tu panel de soporte</p>
+    </div>
 
-    <label>Contraseña</label>
-    <input type="password" name="password"/>
+    <!-- Login Form Card -->
+    <!-- Updated card styling to match welcome page design -->
+    <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-border p-8">
+        <form th:action="@{/login}" method="post" class="space-y-6">
 
-    <button type="submit">LOGIN</button>
-</form>
+            <!-- Success Message -->
+            <div th:if="${param.logout}" class="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 text-emerald-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <p class="text-emerald-800 font-medium font-dm-sans">Has cerrado sesión correctamente.</p>
+                </div>
+            </div>
 
-<a th:href="@{/Usuarios/registro}">Registrarse</a>
+            <!-- Email Field -->
+            <div class="space-y-2">
+                <!-- Updated label typography -->
+                <label for="username" class="block text-sm font-semibold text-foreground font-space-grotesk">
+                    Correo Electrónico
+                </label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <!-- Updated icon color to match new theme -->
+                        <svg class="h-5 w-5 text-primary/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
+                        </svg>
+                    </div>
+                    <input
+                            type="email"
+                            name="username"
+                            id="username"
+                            required
+                            class="w-full pl-10 pr-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200 text-foreground placeholder-slate-400 font-dm-sans"
+                            placeholder="tu@empresa.com"
+                    />
+                </div>
+            </div>
 
+            <!-- Password Field -->
+            <div class="space-y-2">
+                <label for="password" class="block text-sm font-semibold text-foreground font-space-grotesk">
+                    Contraseña
+                </label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-primary/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            required
+                            class="w-full pl-10 pr-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200 text-foreground placeholder-slate-400 font-dm-sans"
+                            placeholder="••••••••"
+                    />
+                </div>
+            </div>
+
+            <!-- Error Message -->
+            <div th:if="${param.error}" class="bg-red-50 border border-red-200 rounded-lg p-4">
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 text-red-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <p class="text-red-800 font-medium font-dm-sans">Usuario o contraseña incorrectos</p>
+                </div>
+            </div>
+
+            <!-- Login Button -->
+            <!-- Updated button styling to match welcome page gradient and hover effects -->
+            <button
+                    type="submit"
+                    class="w-full bg-gradient-to-r from-primary to-secondary hover:from-cyan-600 hover:to-cyan-500 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 focus:ring-2 focus:ring-primary focus:ring-offset-2 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-space-grotesk"
+            >
+                    <span class="flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                        </svg>
+                        INICIAR SESIÓN
+                    </span>
+            </button>
+        </form>
+
+        <!-- Register Link -->
+        <div class="mt-6 text-center">
+            <!-- Updated link styling to match new accent color -->
+            <p class="text-sm text-muted font-dm-sans">
+                ¿No tienes una cuenta?
+                <a th:href="@{/registro}" class="text-accent hover:text-orange-600 font-semibold transition-colors duration-200 hover:underline">
+                    Registrarse aquí
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center mt-8">
+        <p class="text-sm text-muted font-dm-sans">
+            © 2024 Mesa de Ayuda. Soporte técnico profesional.
+        </p>
+    </div>
+</div>
 </body>
 </html>

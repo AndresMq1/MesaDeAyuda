@@ -1,8 +1,7 @@
 package Com.Helpdesk.exeMesaDeAyuda.Imple;
 
 import Com.Helpdesk.exeMesaDeAyuda.Repositorio.UsuarioRepositorio;
-import Com.Helpdesk.exeMesaDeAyuda.dto.UsuariosDTO;
-import Com.Helpdesk.exeMesaDeAyuda.entidades.Usuarios;
+import Com.Helpdesk.exeMesaDeAyuda.entidades.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,13 +17,16 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Usuarios usuarios = usuarioRepositorio.findByEmail(email);
+        Usuario usuarios = usuarioRepositorio.findByEmail(email);
 
-
+        if (usuarios == null) {
+            throw new UsernameNotFoundException("No se encontró el usuario con email: " + email);
+        }
 
         return User.builder()
                 .username(usuarios.getEmail())
                 .password(usuarios.getPassword())
-                .authorities(usuarios.getRol()).build();
+                .authorities("ROLE_" + usuarios.getRol().toUpperCase())
+                .build();
     }
 }

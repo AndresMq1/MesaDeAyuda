@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UsuariosDTO {
+public class UsuarioDTO {
 
     private Long idUsuario;
 

@@ -1,9 +1,10 @@
 package Com.Helpdesk.exeMesaDeAyuda.Controles;
 
 import Com.Helpdesk.exeMesaDeAyuda.Servicios.UsuarioServicio;
-import Com.Helpdesk.exeMesaDeAyuda.dto.UsuariosDTO;
-import Com.Helpdesk.exeMesaDeAyuda.entidades.Usuarios;
+import Com.Helpdesk.exeMesaDeAyuda.dto.UsuarioDTO;
+import Com.Helpdesk.exeMesaDeAyuda.entidades.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,26 +20,26 @@ public class UsuarioControl {
 
     @GetMapping("/listar")
     public String listar(Model model){
-        List<UsuariosDTO> listarUsuario = usuarioServicio.getAllUsuarios();
+        List<UsuarioDTO> listarUsuario = usuarioServicio.getAllUsuarios();
         model.addAttribute("users",listarUsuario);
-        return "lista";
+        return "Agente/lista";
     }
 
-    @GetMapping("/registro")
-    public String registro(Model model){
-        model.addAttribute("usuario", new UsuariosDTO());
-        return "registro";
+    @GetMapping("PrincipalCliente")
+    public String principal(Model model, Authentication authentication){
+        Usuario usuario = usuarioServicio.buscarPorEmail(authentication.getName());
+        model.addAttribute("nombreAgente", usuario.getNombre());
+        return "Cliente/PrincipalClinete";
     }
 
-    @PostMapping("/registro")
-    public String crear(@ModelAttribute UsuariosDTO usuariosDTO){
-        System.out.println(usuariosDTO.getEmail());
-        System.out.println(usuariosDTO.getPassword());
-        System.out.println(usuariosDTO.getNombre());
-        System.out.println(usuariosDTO.getRol());
-        usuarioServicio.createUsuario(usuariosDTO);
-        return "redirect:/Usuarios/listar";
+    @GetMapping("PrincipalAgente")
+    public String principalAgente(Model model, Authentication authentication){
+        Usuario usuario = usuarioServicio.buscarPorEmail(authentication.getName());
+        model.addAttribute("nombreAgente", usuario.getNombre());
+        return "Agente/PrincipalA";
     }
+
+
 
     /*@GetMapping("/crear")
     public String crear(Model model){
@@ -48,12 +49,12 @@ public class UsuarioControl {
 
     @GetMapping("/editar/{id}")
     public String  editar(@PathVariable Long id, Model model){
-        UsuariosDTO usuariosDTO = usuarioServicio.getUsuarioById(id);
+        UsuarioDTO usuariosDTO = usuarioServicio.getUsuarioById(id);
         model.addAttribute("usuario", usuariosDTO);
         return "formU";
     }
     @PostMapping("/editar")
-    public String actualizar( @ModelAttribute UsuariosDTO usuariosDTO){
+    public String actualizar( @ModelAttribute UsuarioDTO usuariosDTO){
         usuarioServicio.updateUsuario(usuariosDTO.getIdUsuario(), usuariosDTO);
         return "redirect:/Usuarios/listar";
     }
@@ -62,8 +63,5 @@ public class UsuarioControl {
         usuarioServicio.deleteUsuario(id);
         return "redirect:/Usuarios/listar";
     }
-    @GetMapping("/login")
-    public String login(){
-        return "login";
-    }
+
 }

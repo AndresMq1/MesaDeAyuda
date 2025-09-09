@@ -2,12 +2,11 @@ package Com.Helpdesk.exeMesaDeAyuda.Imple;
 
 import Com.Helpdesk.exeMesaDeAyuda.Repositorio.CategoriaRepositorio;
 import Com.Helpdesk.exeMesaDeAyuda.Servicios.CategoriaServicio;
-import Com.Helpdesk.exeMesaDeAyuda.dto.CategoriasDTO;
-import Com.Helpdesk.exeMesaDeAyuda.entidades.Categorias;
+import Com.Helpdesk.exeMesaDeAyuda.dto.CategoriaDTO;
+import Com.Helpdesk.exeMesaDeAyuda.entidades.Categoria;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,28 +22,28 @@ public class CategoriaServicioImpl  implements CategoriaServicio {
     }
 
     @Override
-    public List<CategoriasDTO> getAllCategorias(){
-        List<Categorias>  listaCategorias = categoriaRepositorio.findAll();
-        return listaCategorias.stream().map(categoria -> modelMapper.map(categoria, CategoriasDTO.class)).collect(Collectors.toList());
+    public List<CategoriaDTO> getAllCategorias(){
+        List<Categoria>  listaCategorias = categoriaRepositorio.findAll();
+        return listaCategorias.stream().map(categoria -> modelMapper.map(categoria, CategoriaDTO.class)).collect(Collectors.toList());
     }
     @Override
-    public CategoriasDTO getCategoriaById(Long id){
-        Categorias categoria = categoriaRepositorio.findById(id).orElseThrow(() -> new RuntimeException("Categoria no encontrada" + id));
-        return modelMapper.map(categoria, CategoriasDTO.class);
+    public CategoriaDTO getCategoriaById(Long id){
+        Categoria categoria = categoriaRepositorio.findById(id).orElseThrow(() -> new RuntimeException("Categoria no encontrada" + id));
+        return modelMapper.map(categoria, CategoriaDTO.class);
     }
     @Override
-    public CategoriasDTO createCategoria(CategoriasDTO categoriasDTO){
-        Categorias categoria = modelMapper.map(categoriasDTO, Categorias.class);
+    public CategoriaDTO createCategoria(CategoriaDTO categoriasDTO){
+        Categoria categoria = modelMapper.map(categoriasDTO, Categoria.class);
         categoriaRepositorio.save(categoria);
-        return modelMapper.map(categoria, CategoriasDTO.class);
+        return modelMapper.map(categoria, CategoriaDTO.class);
     }
     @Override
-    public CategoriasDTO updateCategoria(Long id,CategoriasDTO categoriasDTO){
-        Categorias categorias = categoriaRepositorio.findById(id).orElseThrow(() -> new RuntimeException("Categoria no encontrada" + id));
+    public CategoriaDTO updateCategoria(Long id, CategoriaDTO categoriasDTO){
+        Categoria categorias = categoriaRepositorio.findById(id).orElseThrow(() -> new RuntimeException("Categoria no encontrada" + id));
         modelMapper.map(categoriasDTO, categorias);
-        Categorias categoriaUp = categoriaRepositorio.save(categorias);
+        Categoria categoriaUp = categoriaRepositorio.save(categorias);
 
-        return modelMapper.map(categoriaUp, CategoriasDTO.class);
+        return modelMapper.map(categoriaUp, CategoriaDTO.class);
     }
     @Override
     public  boolean deleteCategoria(Long id){

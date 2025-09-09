@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Ticket - Mesa de Ayuda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Sans:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Geist Sans', 'system-ui', 'sans-serif'],
+                        'body': ['Manrope', 'system-ui', 'sans-serif']
+                    },
+                    colors: {
+                        background: '#ffffff',
+                        foreground: '#4b5563',
+                        card: '#f9fafb',
+                        'card-foreground': '#4b5563',
+                        primary: '#0891b2',
+                        'primary-foreground': '#ffffff',
+                        secondary: '#f97316',
+                        'secondary-foreground': '#ffffff',
+                        muted: '#f9fafb',
+                        'muted-foreground': '#4b5563',
+                        accent: '#f97316',
+                        'accent-foreground': '#ffffff',
+                        destructive: '#be123c',
+                        'destructive-foreground': '#ffffff',
+                        border: '#e5e7eb',
+                        input: '#ffffff',
+                        ring: '#0891b2'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-full bg-background font-body">
+<div class="min-h-full flex">
+    <!-- Sidebar -->
+    <div class="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0">
+        <div class="flex flex-col flex-grow bg-card border-r border-border pt-5 pb-4 overflow-y-auto">
+            <div class="flex items-center flex-shrink-0 px-4">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="ml-3 text-lg font-sans font-semibold text-foreground">Mesa de Ayuda</h2>
+                </div>
+            </div>
+            <nav class="mt-8 flex-1 px-2 space-y-1">
+                <a href="index-cliente.html" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
+                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 7 5 5 5-5"></path>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="#" class="bg-primary text-primary-foreground group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    Crear Ticket
+                </a>
+                <a href="#" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
+                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                    </svg>
+                    Mis Tickets
+                </a>
+                <a href="#" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
+                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Ayuda
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="lg:pl-64 flex flex-col flex-1">
+        <!-- Top bar -->
+        <div class="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-background border-b border-border lg:border-none">
+            <button type="button" class="px-4 border-r border-border text-muted-foreground focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary lg:hidden">
+                <span class="sr-only">Abrir sidebar</span>
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            <div class="flex-1 px-4 flex justify-between items-center">
+                <div class="flex-1">
+                    <h1 class="text-2xl font-sans font-bold text-foreground">Crear Nuevo Ticket</h1>
+                    <p class="mt-1 text-sm text-muted-foreground">Complete el formulario para enviar su solicitud de soporte</p>
+                </div>
+                <div class="ml-4 flex items-center md:ml-6">
+                    <div class="relative">
+                        <button class="bg-background p-1 rounded-full text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            <span class="sr-only">Ver notificaciones</span>
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6a2 2 0 012 2v9a2 2 0 01-2 2H9a2 2 0 01-2-2V9a2 2 0 012-2z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="ml-3 relative">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                                <span class="text-sm font-medium text-primary-foreground">JD</span>
+                            </div>
+                            <span class="ml-2 text-sm font-medium text-foreground hidden md:block">Juan Pérez</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form content -->
+        <main class="flex-1 relative overflow-y-auto focus:outline-none">
+            <div class="py-6">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-card rounded-lg shadow-sm border border-border">
+                        <div class="px-6 py-8">
+                            <form action="/crear-ticket" method="post" enctype="multipart/form-data" class="space-y-6">
+                                <!-- Asunto -->
+                                <div>
+                                    <label for="asunto" class="block text-sm font-sans font-medium text-foreground mb-2">
+                                        <svg class="inline w-4 h-4 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                                        </svg>
+                                        Asunto del Ticket *
+                                    </label>
+                                    <input type="text" id="asunto" name="asunto" required
+                                           class="w-full px-3 py-2 border border-border rounded-md shadow-sm placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-input text-foreground"
+                                           placeholder="Resuma brevemente su problema o solicitud">
+                                </div>
+
+                                <!-- Categoría y Prioridad -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="categoria" class="block text-sm font-sans font-medium text-foreground mb-2">
+                                            <svg class="inline w-4 h-4 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                                            </svg>
+                                            Categoría *
+                                        </label>
+                                        <select id="categoria" name="categoria" required
+                                                class="w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-input text-foreground">
+                                            <option value="">Seleccione una categoría</option>
+                                            <option value="tecnico">Soporte Técnico</option>
+                                            <option value="facturacion">Facturación</option>
+                                            <option value="cuenta">Gestión de Cuenta</option>
+                                            <option value="producto">Información de Producto</option>
+                                            <option value="otro">Otro</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label for="prioridad" class="block text-sm font-sans font-medium text-foreground mb-2">
+                                            <svg class="inline w-4 h-4 mr-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                            </svg>
+                                            Prioridad *
+                                        </label>
+                                        <select id="prioridad" name="prioridad" required
+                                                class="w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-input text-foreground">
+                                            <option value="">Seleccione la prioridad</option>
+                                            <option value="baja">Baja</option>
+                                            <option value="media">Media</option>
+                                            <option value="alta">Alta</option>
+                                            <option value="critica">Crítica</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Descripción -->
+                                <div>
+                                    <label for="descripcion" class="block text-sm font-sans font-medium text-foreground mb-2">
+                                        <svg class="inline w-4 h-4 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                        Descripción Detallada *
+                                    </label>
+                                    <textarea id="descripcion" name="descripcion" rows="6" required
+                                              class="w-full px-3 py-2 border border-border rounded-md shadow-sm placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-input text-foreground resize-vertical"
+                                              placeholder="Describa detalladamente su problema, incluyendo pasos para reproducirlo, mensajes de error, y cualquier información relevante..."></textarea>
+                                    <p class="mt-2 text-xs text-muted-foreground">Proporcione la mayor cantidad de detalles posible para ayudarnos a resolver su solicitud más rápidamente.</p>
+                                </div>
+
+                                <!-- Archivos adjuntos -->
+                                <div>
+                                    <label class="block text-sm font-sans font-medium text-foreground mb-2">
+                                        <svg class="inline w-4 h-4 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
+                                        </svg>
+                                        Archivos Adjuntos
+                                    </label>
+                                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-border border-dashed rounded-md hover:border-primary transition-colors">
+                                        <div class="space-y-1 text-center">
+                                            <svg class="mx-auto h-12 w-12 text-muted-foreground" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                            <div class="flex text-sm text-muted-foreground">
+                                                <label for="archivos" class="relative cursor-pointer bg-background rounded-md font-medium text-primary hover:text-primary/80 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary">
+                                                    <span>Subir archivos</span>
+                                                    <input id="archivos" name="archivos" type="file" multiple class="sr-only" accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.txt">
+                                                </label>
+                                                <p class="pl-1">o arrastrar y soltar</p>
+                                            </div>
+                                            <p class="text-xs text-muted-foreground">PNG, JPG, PDF hasta 10MB cada uno</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Información de contacto -->
+                                <div class="bg-muted rounded-lg p-4">
+                                    <h3 class="text-sm font-sans font-medium text-foreground mb-3">Información de Contacto</h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label for="email" class="block text-sm font-medium text-foreground mb-1">Email de Contacto</label>
+                                            <input type="email" id="email" name="email" value="juan.perez@empresa.com" readonly
+                                                   class="w-full px-3 py-2 border border-border rounded-md shadow-sm bg-background/50 text-muted-foreground">
+                                        </div>
+                                        <div>
+                                            <label for="telefono" class="block text-sm font-medium text-foreground mb-1">Teléfono (Opcional)</label>
+                                            <input type="tel" id="telefono" name="telefono"
+                                                   class="w-full px-3 py-2 border border-border rounded-md shadow-sm placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-input text-foreground"
+                                                   placeholder="+1 (555) 123-4567">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Botones de acción -->
+                                <div class="flex flex-col sm:flex-row gap-3 pt-6">
+                                    <button type="submit"
+                                            class="flex-1 sm:flex-none inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-primary-foreground bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
+                                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                        </svg>
+                                        Enviar Ticket
+                                    </button>
+                                    <button type="button"
+                                            class="inline-flex justify-center items-center px-6 py-3 border border-border text-base font-medium rounded-md text-foreground bg-background hover:bg-muted focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
+                                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                        Cancelar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Información adicional -->
+                    <div class="mt-8 bg-card rounded-lg shadow-sm border border-border p-6">
+                        <h3 class="text-lg font-sans font-medium text-foreground mb-4">Consejos para un Ticket Efectivo</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="ml-3">
+                                    <h4 class="text-sm font-medium text-foreground">Sea Específico</h4>
+                                    <p class="text-sm text-muted-foreground">Incluya detalles como mensajes de error, pasos realizados y el resultado esperado.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="ml-3">
+                                    <h4 class="text-sm font-medium text-foreground">Adjunte Evidencia</h4>
+                                    <p class="text-sm text-muted-foreground">Capturas de pantalla, logs o documentos que ayuden a entender el problema.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+    // Drag and drop functionality
+    const dropZone = document.querySelector('[class*="border-dashed"]');
+    const fileInput = document.getElementById('archivos');
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight(e) {
+        dropZone.classList.add('border-primary', 'bg-primary/5');
+    }
+
+    function unhighlight(e) {
+        dropZone.classList.remove('border-primary', 'bg-primary/5');
+    }
+
+    dropZone.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        fileInput.files = files;
+    }
+</script>
+</body>
+</html>

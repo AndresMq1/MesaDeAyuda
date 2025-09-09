@@ -2,10 +2,9 @@ package Com.Helpdesk.exeMesaDeAyuda.Imple;
 
 import Com.Helpdesk.exeMesaDeAyuda.Repositorio.UsuarioRepositorio;
 import Com.Helpdesk.exeMesaDeAyuda.Servicios.UsuarioServicio;
-import Com.Helpdesk.exeMesaDeAyuda.dto.UsuariosDTO;
-import Com.Helpdesk.exeMesaDeAyuda.entidades.Usuarios;
+import Com.Helpdesk.exeMesaDeAyuda.dto.UsuarioDTO;
+import Com.Helpdesk.exeMesaDeAyuda.entidades.Usuario;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,39 +27,43 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
 
     @Override
-    public List<UsuariosDTO> getAllUsuarios() {
-        List<Usuarios> listarUsuarios = usuarioRepositorio.findAll();
-        return listarUsuarios.stream().map(u -> modelMapper.map(u, UsuariosDTO.class)).collect(Collectors.toList());
+    public List<UsuarioDTO> getAllUsuarios() {
+        List<Usuario> listarUsuarios = usuarioRepositorio.findAll();
+        return listarUsuarios.stream().map(u -> modelMapper.map(u, UsuarioDTO.class)).collect(Collectors.toList());
     }
 
     @Override
-    public UsuariosDTO getUsuarioById(Long id){
-        Usuarios usuario = usuarioRepositorio.findById(id).orElseThrow(() -> new RuntimeException("Usuario no encontrado" + id) );
-        return modelMapper.map(usuario, UsuariosDTO.class);
+    public UsuarioDTO getUsuarioById(Long id){
+        Usuario usuario = usuarioRepositorio.findById(id).orElseThrow(() -> new RuntimeException("Usuario no encontrado" + id) );
+        return modelMapper.map(usuario, UsuarioDTO.class);
     }
     @Override
-    public boolean createUsuario(UsuariosDTO usuariosDTO) {
-        Usuarios usuario = modelMapper.map(usuariosDTO, Usuarios.class);
+    public boolean createUsuario(UsuarioDTO usuariosDTO) {
+        Usuario usuario = modelMapper.map(usuariosDTO, Usuario.class);
         usuario.setPassword(passwordEncoder.encode(usuariosDTO.getPassword()));
         usuarioRepositorio.save(usuario);
         return true;
     }
     @Override
-    public UsuariosDTO updateUsuario(Long id,UsuariosDTO usuariosDTO) {
-        Usuarios usuario = usuarioRepositorio.findById(id).orElseThrow(() -> new RuntimeException("Usuario no encontrado" + id) );
+    public UsuarioDTO updateUsuario(Long id, UsuarioDTO usuariosDTO) {
+        Usuario usuario = usuarioRepositorio.findById(id).orElseThrow(() -> new RuntimeException("Usuario no encontrado" + id) );
         modelMapper.map(usuariosDTO, usuario);
 
-        Usuarios usuarios = usuarioRepositorio.save(usuario);
+        Usuario usuarios = usuarioRepositorio.save(usuario);
 
-        return  modelMapper.map(usuarios, UsuariosDTO.class);
+        return  modelMapper.map(usuarios, UsuarioDTO.class);
     }
-
     @Override
     public boolean deleteUsuario(Long id) {
         if(!usuarioRepositorio.existsById(id)){
             throw new RuntimeException("Usuario no encontrado" + id);}
         usuarioRepositorio.deleteById(id);
         return true;
+    }
+
+    @Override
+    public Usuario buscarPorEmail(String email) {
+        return usuarioRepositorio.findByEmail(email);
     }
 
 

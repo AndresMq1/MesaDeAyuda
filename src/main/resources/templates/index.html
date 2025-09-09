@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bienvenido - Sistema de Soporte</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: #ffffff;
+      --foreground: #475569;
+      --card: #ecfeff;
+      --card-foreground: #164e63;
+      --primary: #164e63;
+      --primary-foreground: #ffffff;
+      --secondary: #ea580c;
+      --secondary-foreground: #ffffff;
+      --muted: #f3f4f6;
+      --muted-foreground: #4b5563;
+      --accent: #ea580c;
+      --border: #e5e7eb;
+      --radius: 0.5rem;
+    }
+
+    .font-space-grotesk { font-family: 'Space Grotesk', sans-serif; }
+    .font-dm-sans { font-family: 'DM Sans', sans-serif; }
+
+    .bg-primary { background-color: var(--primary); }
+    .text-primary { color: var(--primary); }
+    .bg-secondary { background-color: var(--secondary); }
+    .text-secondary { color: var(--secondary); }
+    .bg-card { background-color: var(--card); }
+    .text-card-foreground { color: var(--card-foreground); }
+    .border-border { border-color: var(--border); }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #ecfeff 0%, #ffffff 100%);
+    }
+
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #0f3a47;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background-color: #c2410c;
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body class="h-full font-dm-sans bg-white text-gray-600">
+<!-- Header -->
+<header class="bg-white shadow-sm border-b border-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <div class="flex items-center">
+        <div class="flex-shrink-0 flex items-center">
+          <svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <span class="ml-2 text-xl font-space-grotesk font-bold text-primary">HelpDesk Pro</span>
+        </div>
+      </div>
+      <nav class="hidden md:flex space-x-8">
+        <a href="#" class="text-gray-500 hover:text-primary transition-colors">Acerca de</a>
+        <a href="#" class="text-gray-500 hover:text-primary transition-colors">Contacto</a>
+        <a href="#" class="text-gray-500 hover:text-primary transition-colors">Ayuda</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main class="flex-1">
+  <!-- Hero Section -->
+  <section class="hero-gradient py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
+        <div class="mb-12 lg:mb-0">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-space-grotesk font-bold text-primary mb-6 leading-tight">
+            Bienvenido al Sistema de Soporte
+          </h1>
+          <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+            Tu plataforma integral para gestionar solicitudes de soporte técnico de manera eficiente y profesional.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 mb-12">
+            <a th:href="@{/login}" class="btn-primary px-8 py-4 rounded-lg font-semibold text-center shadow-lg hover:shadow-xl">
+              Iniciar Sesión
+            </a>
+            <a th:href="@{/registro}" class="btn-secondary px-8 py-4 rounded-lg font-semibold text-center shadow-lg hover:shadow-xl">
+              Registrarse
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Image -->
+        <div class="lg:ml-8">
+          <div class="relative">
+            <img src="/placeholder.svg?height=400&width=500"
+                 alt="Sistema de Soporte"
+                 class="w-full h-auto rounded-2xl shadow-2xl">
+            <div class="absolute -bottom-6 -right-6 bg-secondary text-white p-4 rounded-xl shadow-lg">
+              <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-space-grotesk font-bold text-primary mb-4">
+          ¿Por qué elegir nuestro sistema?
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Ofrecemos una solución completa para la gestión de soporte técnico con herramientas avanzadas y una interfaz intuitiva.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="feature-card bg-card p-8 rounded-2xl border border-border">
+          <div class="bg-primary w-12 h-12 rounded-xl flex items-center justify-center mb-6">
+            <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-space-grotesk font-semibold text-card-foreground mb-4">Soporte 24/7</h3>
+          <p class="text-gray-600">Atención continua para resolver tus consultas en cualquier momento del día.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card bg-card p-8 rounded-2xl border border-border">
+          <div class="bg-secondary w-12 h-12 rounded-xl flex items-center justify-center mb-6">
+            <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-space-grotesk font-semibold text-card-foreground mb-4">Gestión Eficiente</h3>
+          <p class="text-gray-600">Organiza y prioriza tickets de manera inteligente para una resolución más rápida.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card bg-card p-8 rounded-2xl border border-border">
+          <div class="bg-primary w-12 h-12 rounded-xl flex items-center justify-center mb-6">
+            <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-space-grotesk font-semibold text-card-foreground mb-4">Equipo Especializado</h3>
+          <p class="text-gray-600">Profesionales capacitados para brindar soluciones técnicas precisas y efectivas.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card bg-card p-8 rounded-2xl border border-border">
+          <div class="bg-secondary w-12 h-12 rounded-xl flex items-center justify-center mb-6">
+            <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-space-grotesk font-semibold text-card-foreground mb-4">Reportes Detallados</h3>
+          <p class="text-gray-600">Análisis completos del rendimiento y métricas de satisfacción del cliente.</p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card bg-card p-8 rounded-2xl border border-border">
+          <div class="bg-primary w-12 h-12 rounded-xl flex items-center justify-center mb-6">
+            <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-space-grotesk font-semibold text-card-foreground mb-4">Seguridad Avanzada</h3>
+          <p class="text-gray-600">Protección de datos con los más altos estándares de seguridad y privacidad.</p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card bg-card p-8 rounded-2xl border border-border">
+          <div class="bg-secondary w-12 h-12 rounded-xl flex items-center justify-center mb-6">
+            <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-space-grotesk font-semibold text-card-foreground mb-4">Satisfacción Garantizada</h3>
+          <p class="text-gray-600">Compromiso total con la calidad del servicio y la satisfacción del usuario.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="bg-primary py-20">
+    <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl md:text-4xl font-space-grotesk font-bold text-white mb-6">
+        ¿Listo para comenzar?
+      </h2>
+      <p class="text-xl text-cyan-100 mb-8 max-w-2xl mx-auto">
+        Únete a miles de usuarios que ya confían en nuestro sistema de soporte para resolver sus consultas técnicas.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="registro.html" class="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-50 transition-colors shadow-lg">
+          Crear Cuenta Gratis
+        </a>
+        <a href="login.html" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors">
+          Ya tengo cuenta
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-50 border-t border-border">
+  <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-4 gap-8">
+      <div class="col-span-2">
+        <div class="flex items-center mb-4">
+          <svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <span class="ml-2 text-xl font-space-grotesk font-bold text-primary">HelpDesk Pro</span>
+        </div>
+        <p class="text-gray-600 mb-4">
+          Soluciones profesionales de soporte técnico para empresas de todos los tamaños.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="font-semibold text-gray-900 mb-4">Enlaces</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">Política de Privacidad</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">Términos de Servicio</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-semibold text-gray-900 mb-4">Soporte</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">Centro de Ayuda</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">Documentación</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">Estado del Sistema</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-8 pt-8 border-t border-border">
+      <p class="text-center text-gray-500">
+        © 2024 HelpDesk Pro. Todos los derechos reservados.
+      </p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -3,12 +3,11 @@ package Com.Helpdesk.exeMesaDeAyuda.Imple;
 import Com.Helpdesk.exeMesaDeAyuda.Exepciones.CustomException;
 import Com.Helpdesk.exeMesaDeAyuda.Repositorio.ComentarioRepositorio;
 import Com.Helpdesk.exeMesaDeAyuda.Servicios.ComentarioServicio;
-import Com.Helpdesk.exeMesaDeAyuda.dto.ComentariosDTO;
-import Com.Helpdesk.exeMesaDeAyuda.entidades.Comentarios;
+import Com.Helpdesk.exeMesaDeAyuda.dto.ComentarioDTO;
+import Com.Helpdesk.exeMesaDeAyuda.entidades.Comentario;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,30 +23,30 @@ public class ComentarioServicioImpl implements ComentarioServicio {
     }
 
     @Override
-    public List<ComentariosDTO> getAllComentarios() {
-        List<Comentarios> listaComentarios = comentarioRepositorio.findAll();
-        return listaComentarios.stream().map(comentario -> modelMapper.map(comentario, ComentariosDTO.class)).collect(Collectors.toList());
+    public List<ComentarioDTO> getAllComentarios() {
+        List<Comentario> listaComentarios = comentarioRepositorio.findAll();
+        return listaComentarios.stream().map(comentario -> modelMapper.map(comentario, ComentarioDTO.class)).collect(Collectors.toList());
     }
 
     @Override
-    public ComentariosDTO getComentarioById(Long id) {
-        Comentarios comentario = comentarioRepositorio.findById(id).orElseThrow(() -> new CustomException("Comentario no encontrado" + id));
-        return modelMapper.map(comentario, ComentariosDTO.class);
+    public ComentarioDTO getComentarioById(Long id) {
+        Comentario comentario = comentarioRepositorio.findById(id).orElseThrow(() -> new CustomException("Comentario no encontrado" + id));
+        return modelMapper.map(comentario, ComentarioDTO.class);
     }
 
     @Override
-    public ComentariosDTO createComentario(ComentariosDTO comentariosDTO) {
-        Comentarios comentario = modelMapper.map(comentariosDTO, Comentarios.class);
+    public ComentarioDTO createComentario(ComentarioDTO comentariosDTO) {
+        Comentario comentario = modelMapper.map(comentariosDTO, Comentario.class);
         comentarioRepositorio.save(comentario);
-        return modelMapper.map(comentario, ComentariosDTO.class);
+        return modelMapper.map(comentario, ComentarioDTO.class);
     }
 
     @Override
-    public ComentariosDTO updateComentario(Long id, ComentariosDTO comentariosDTO) {
-        Comentarios comentario = comentarioRepositorio.findById(id).orElseThrow(() -> new CustomException("Comentario no encontrado" + id));
+    public ComentarioDTO updateComentario(Long id, ComentarioDTO comentariosDTO) {
+        Comentario comentario = comentarioRepositorio.findById(id).orElseThrow(() -> new CustomException("Comentario no encontrado" + id));
         modelMapper.map(comentariosDTO, comentario);
-        Comentarios comentarioActu = comentarioRepositorio.save(comentario);
-        return modelMapper.map(comentarioActu, ComentariosDTO.class);
+        Comentario comentarioActu = comentarioRepositorio.save(comentario);
+        return modelMapper.map(comentarioActu, ComentarioDTO.class);
     }
 
     @Override

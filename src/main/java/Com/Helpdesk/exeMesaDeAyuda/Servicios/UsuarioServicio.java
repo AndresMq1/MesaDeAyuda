@@ -1,15 +1,16 @@
 package Com.Helpdesk.exeMesaDeAyuda.Servicios;
 
-import Com.Helpdesk.exeMesaDeAyuda.dto.UsuariosDTO;
+import Com.Helpdesk.exeMesaDeAyuda.dto.UsuarioDTO;
+import Com.Helpdesk.exeMesaDeAyuda.entidades.Usuario;
 
 import java.util.List;
 
 public interface UsuarioServicio {
 
-    List<UsuariosDTO> getAllUsuarios();
-    UsuariosDTO getUsuarioById(Long id);
-    boolean createUsuario(UsuariosDTO usuariosDTO);
-    UsuariosDTO updateUsuario(Long id,UsuariosDTO usuariosDTO);
+    List<UsuarioDTO> getAllUsuarios();
+    UsuarioDTO getUsuarioById(Long id);
+    boolean createUsuario(UsuarioDTO usuariosDTO);
+    UsuarioDTO updateUsuario(Long id, UsuarioDTO usuariosDTO);
     boolean deleteUsuario(Long id);
-
+    Usuario buscarPorEmail(String email);
 }

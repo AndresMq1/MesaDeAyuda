@@ -23,18 +23,30 @@ public class SecurityConfig {
     @Autowired
     UserDetailServiceImpl  userDetailServiceImpl;
 
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomSuccessHandler customSuccessHandler) throws Exception {
         return http
                 .authorizeHttpRequests(a -> {
-                    a.requestMatchers("/Usuarios/registro").permitAll();
+                    a.requestMatchers("/","/registro").permitAll();
+                    a.requestMatchers("/Usuarios/PrincipalAgente").hasRole("AGENTE");
+                a.requestMatchers("/Usuarios/PrincipalCliente").hasRole("CLIENTE");
                     a.anyRequest().authenticated();
                 })
                 .formLogin(login -> {
-                    login.loginPage("/Usuarios/login").permitAll();
+                    login.loginPage("/login").permitAll();
                     login.loginProcessingUrl("/login");
-                    login.failureUrl("/Usuarios/login?error=true");
-                    login.defaultSuccessUrl("/Usuarios/listar");
+                    login.failureUrl("/login?error=true");
+                    login.successHandler(customSuccessHandler);
+                })
+                .logout(logout -> {
+                    logout
+
+                            .logoutUrl("/logout")
+                            .logoutSuccessUrl("/Usuarios/login?logout=true")
+                            .invalidateHttpSession(true)
+                            .clearAuthentication(true)
+                            .permitAll();
                 })
                 .build();
     }

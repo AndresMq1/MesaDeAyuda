@@ -2,12 +2,11 @@ package Com.Helpdesk.exeMesaDeAyuda.entidades;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Generated;
 
 @Entity
 @Table(name = "Usuarios")
 @Data
-public class Usuarios {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

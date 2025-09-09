@@ -17,12 +17,12 @@ public class Ticket {
     //Acaba la decla el id_usuario
     @ManyToOne
     @JoinColumn(name = "IdUsuario", nullable = false)
-    private Usuarios usuario;
+    private Usuario usuario;
 
     //Aca declaramos el id_categotia
     @ManyToOne
     @JoinColumn(name = "IdCategoria",nullable = false)
-    private Categorias categoria;
+    private Categoria categoria;
 
     @Column(name = "titulo", nullable = false,length = 100)
     private String titulo;
