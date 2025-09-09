@@ -2,13 +2,16 @@ package Com.Helpdesk.exeMesaDeAyuda.Imple;
 
 import Com.Helpdesk.exeMesaDeAyuda.Exepciones.CustomException;
 import Com.Helpdesk.exeMesaDeAyuda.Repositorio.TicketRepositorio;
+import Com.Helpdesk.exeMesaDeAyuda.Repositorio.UsuarioRepositorio;
 import Com.Helpdesk.exeMesaDeAyuda.Servicios.TicketServicio;
 import Com.Helpdesk.exeMesaDeAyuda.dto.TicketDTO;
 import Com.Helpdesk.exeMesaDeAyuda.entidades.Ticket;
+import Com.Helpdesk.exeMesaDeAyuda.entidades.Usuario;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +22,8 @@ public class TicketServicioImpl implements TicketServicio {
     @Autowired
     private final TicketRepositorio  ticketRepositorio;
     private final ModelMapper modelMapper;
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
 
     public TicketServicioImpl(TicketRepositorio ticketRepositorio, ModelMapper modelMapper) {
         this.ticketRepositorio = ticketRepositorio;
@@ -36,9 +41,14 @@ public class TicketServicioImpl implements TicketServicio {
         return modelMapper.map(ticket, TicketDTO.class);
     }
     @Override
-    public TicketDTO createTicket(TicketDTO ticketDTO) {
+    public TicketDTO createTicket(TicketDTO ticketDTO,Usuario usuario) {
         Ticket ticket = modelMapper.map(ticketDTO, Ticket.class);
-        ticket = ticketRepositorio.save(ticket);
+
+        ticket.setUsuario(usuario);
+        ticket.setCreadoEn(LocalDateTime.now());
+
+        ticketRepositorio.save(ticket);
+
         return modelMapper.map(ticket, TicketDTO.class);
     }
     @Override

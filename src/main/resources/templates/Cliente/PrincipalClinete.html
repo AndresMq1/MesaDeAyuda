@@ -61,17 +61,17 @@
                 <h1 class="text-2xl font-space-grotesk font-bold text-card-foreground" th:text="'Bienvenido: ' + ${nombreAgente}"></h1>
                 <p class="text-sm text-muted-foreground">Gestiona tus tickets de soporte técnico</p>
             </div>
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-4" >
                 <div class="relative">
                     <button class="p-2 text-card-foreground hover:bg-muted rounded-lg transition-colors">
                         <i class="fas fa-bell text-lg"></i>
                         <span class="absolute -top-1 -right-1 w-3 h-3 bg-destructive rounded-full"></span>
                     </button>
                 </div>
-                <button class="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-opacity-90 transition-colors">
+                <a th:href="@{/Ticket/RegistrarTik}" class="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-opacity-90 transition-colors">
                     <i class="fas fa-plus mr-2"></i>
                     Nuevo Ticket
-                </button>
+                </a>
             </div>
         </div>
     </header>
@@ -137,10 +137,10 @@
                 </div>
                 <div class="p-6">
                     <div class="space-y-4">
-                        <div class="flex items-center justify-between p-4 bg-white rounded-lg border border-border">
+                        <div th:each="tick : ${listaUsuario}" class="flex items-center justify-between p-4 bg-white rounded-lg border border-border">
                             <div class="flex-1">
                                 <div class="flex items-center space-x-2 mb-1">
-                                    <span class="text-sm font-medium text-card-foreground">#TK-001</span>
+                                    <span class="text-sm font-medium text-card-foreground" th:text="${tick.idTicket}" ></span>
                                     <span class="px-2 py-1 text-xs font-medium rounded-full status-open">Abierto</span>
                                 </div>
                                 <p class="text-sm text-card-foreground">Problema con acceso al sistema</p>
@@ -149,29 +149,6 @@
                             <i class="fas fa-chevron-right text-muted-foreground"></i>
                         </div>
 
-                        <div class="flex items-center justify-between p-4 bg-white rounded-lg border border-border">
-                            <div class="flex-1">
-                                <div class="flex items-center space-x-2 mb-1">
-                                    <span class="text-sm font-medium text-card-foreground">#TK-002</span>
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full status-progress">En Progreso</span>
-                                </div>
-                                <p class="text-sm text-card-foreground">Error en la aplicación móvil</p>
-                                <p class="text-xs text-muted-foreground mt-1">Creado hace 1 día</p>
-                            </div>
-                            <i class="fas fa-chevron-right text-muted-foreground"></i>
-                        </div>
-
-                        <div class="flex items-center justify-between p-4 bg-white rounded-lg border border-border">
-                            <div class="flex-1">
-                                <div class="flex items-center space-x-2 mb-1">
-                                    <span class="text-sm font-medium text-card-foreground">#TK-003</span>
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full status-resolved">Resuelto</span>
-                                </div>
-                                <p class="text-sm text-card-foreground">Solicitud de nueva funcionalidad</p>
-                                <p class="text-xs text-muted-foreground mt-1">Resuelto hace 3 días</p>
-                            </div>
-                            <i class="fas fa-chevron-right text-muted-foreground"></i>
-                        </div>
                     </div>
 
                     <div class="mt-4 pt-4 border-t border-border">

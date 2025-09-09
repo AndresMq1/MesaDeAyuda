@@ -1,87 +1,57 @@
 <!DOCTYPE html>
-<html lang="es" class="h-full">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Ticket - Mesa de Ayuda</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Geist+Sans:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'sans': ['Geist Sans', 'system-ui', 'sans-serif'],
-                        'body': ['Manrope', 'system-ui', 'sans-serif']
-                    },
-                    colors: {
-                        background: '#ffffff',
-                        foreground: '#4b5563',
-                        card: '#f9fafb',
-                        'card-foreground': '#4b5563',
-                        primary: '#0891b2',
-                        'primary-foreground': '#ffffff',
-                        secondary: '#f97316',
-                        'secondary-foreground': '#ffffff',
-                        muted: '#f9fafb',
-                        'muted-foreground': '#4b5563',
-                        accent: '#f97316',
-                        'accent-foreground': '#ffffff',
-                        destructive: '#be123c',
-                        'destructive-foreground': '#ffffff',
-                        border: '#e5e7eb',
-                        input: '#ffffff',
-                        ring: '#0891b2'
-                    }
-                }
-            }
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap');
+
+        :root {
+            --background: #ffffff;
+            --foreground: #475569;
+            --card: #f1f5f9;
+            --card-foreground: #475569;
+            --primary: #059669;
+            --primary-foreground: #ffffff;
+            --secondary: #10b981;
+            --secondary-foreground: #ffffff;
+            --muted: #ecfeff;
+            --muted-foreground: #475569;
+            --accent: #10b981;
+            --accent-foreground: #ffffff;
+            --destructive: #e53e3e;
+            --destructive-foreground: #ffffff;
+            --border: #d1d5db;
+            --radius: 0.5rem;
         }
-    </script>
+
+        .font-space-grotesk { font-family: 'Space Grotesk', sans-serif; }
+        .font-dm-sans { font-family: 'DM Sans', sans-serif; }
+
+        .bg-primary { background-color: var(--primary); }
+        .text-primary { color: var(--primary); }
+        .bg-secondary { background-color: var(--secondary); }
+        .text-secondary { color: var(--secondary); }
+        .bg-card { background-color: var(--card); }
+        .text-card-foreground { color: var(--card-foreground); }
+        .bg-muted { background-color: var(--muted); }
+        .text-muted-foreground { color: var(--muted-foreground); }
+        .border-border { border-color: var(--border); }
+
+        .status-open { background-color: #fef3c7; color: #92400e; }
+        .status-progress { background-color: #dbeafe; color: #1e40af; }
+        .status-resolved { background-color: #d1fae5; color: #065f46; }
+        .status-closed { background-color: #f3f4f6; color: #374151; }
+    </style>
 </head>
 <body class="h-full bg-background font-body">
 <div class="min-h-full flex">
     <!-- Sidebar -->
-    <div class="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0">
-        <div class="flex flex-col flex-grow bg-card border-r border-border pt-5 pb-4 overflow-y-auto">
-            <div class="flex items-center flex-shrink-0 px-4">
-                <div class="flex items-center">
-                    <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                        <svg class="w-5 h-5 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                        </svg>
-                    </div>
-                    <h2 class="ml-3 text-lg font-sans font-semibold text-foreground">Mesa de Ayuda</h2>
-                </div>
-            </div>
-            <nav class="mt-8 flex-1 px-2 space-y-1">
-                <a href="index-cliente.html" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
-                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 7 5 5 5-5"></path>
-                    </svg>
-                    Dashboard
-                </a>
-                <a href="#" class="bg-primary text-primary-foreground group flex items-center px-2 py-2 text-sm font-medium rounded-md">
-                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                    </svg>
-                    Crear Ticket
-                </a>
-                <a href="#" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
-                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                    </svg>
-                    Mis Tickets
-                </a>
-                <a href="#" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
-                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    Ayuda
-                </a>
-            </nav>
-        </div>
-    </div>
+
+    <div th:replace="fragments/navar :: navar"></div>
 
     <!-- Main content -->
     <div class="lg:pl-64 flex flex-col flex-1">
@@ -108,14 +78,7 @@
                             </svg>
                         </button>
                     </div>
-                    <div class="ml-3 relative">
-                        <div class="flex items-center">
-                            <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                                <span class="text-sm font-medium text-primary-foreground">JD</span>
-                            </div>
-                            <span class="ml-2 text-sm font-medium text-foreground hidden md:block">Juan Pérez</span>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -126,7 +89,10 @@
                 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="bg-card rounded-lg shadow-sm border border-border">
                         <div class="px-6 py-8">
-                            <form action="/crear-ticket" method="post" enctype="multipart/form-data" class="space-y-6">
+                            <form th:action="@{RegistrarTik}" th:object="${ticketR}" method="post"  class="space-y-6">
+
+                                <input type="hidden" th:field="*{estado}" value="Activo">
+
                                 <!-- Asunto -->
                                 <div>
                                     <label for="asunto" class="block text-sm font-sans font-medium text-foreground mb-2">
@@ -135,7 +101,7 @@
                                         </svg>
                                         Asunto del Ticket *
                                     </label>
-                                    <input type="text" id="asunto" name="asunto" required
+                                    <input type="text" id="asunto" name="asunto" required th:field="*{titulo}"
                                            class="w-full px-3 py-2 border border-border rounded-md shadow-sm placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-input text-foreground"
                                            placeholder="Resuma brevemente su problema o solicitud">
                                 </div>
@@ -149,14 +115,10 @@
                                             </svg>
                                             Categoría *
                                         </label>
-                                        <select id="categoria" name="categoria" required
+                                        <select  th:field="*{idCategoria}" id="categoria" name="categoria" required
                                                 class="w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-input text-foreground">
                                             <option value="">Seleccione una categoría</option>
-                                            <option value="tecnico">Soporte Técnico</option>
-                                            <option value="facturacion">Facturación</option>
-                                            <option value="cuenta">Gestión de Cuenta</option>
-                                            <option value="producto">Información de Producto</option>
-                                            <option value="otro">Otro</option>
+                                            <option th:each="cate : ${listaCate}" th:value="${cate.idCategoria}" th:text="${cate.nombre}" ></option>
                                         </select>
                                     </div>
 
@@ -167,7 +129,7 @@
                                             </svg>
                                             Prioridad *
                                         </label>
-                                        <select id="prioridad" name="prioridad" required
+                                        <select  th:field="*{prioridad}" id="prioridad" name="prioridad" required
                                                 class="w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-input text-foreground">
                                             <option value="">Seleccione la prioridad</option>
                                             <option value="baja">Baja</option>
@@ -186,13 +148,13 @@
                                         </svg>
                                         Descripción Detallada *
                                     </label>
-                                    <textarea id="descripcion" name="descripcion" rows="6" required
+                                    <textarea th:field="*{descripcion}" id="descripcion" name="descripcion" rows="6" required
                                               class="w-full px-3 py-2 border border-border rounded-md shadow-sm placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-input text-foreground resize-vertical"
                                               placeholder="Describa detalladamente su problema, incluyendo pasos para reproducirlo, mensajes de error, y cualquier información relevante..."></textarea>
                                     <p class="mt-2 text-xs text-muted-foreground">Proporcione la mayor cantidad de detalles posible para ayudarnos a resolver su solicitud más rápidamente.</p>
                                 </div>
 
-                                <!-- Archivos adjuntos -->
+                                <!-- Archivos adjuntos
                                 <div>
                                     <label class="block text-sm font-sans font-medium text-foreground mb-2">
                                         <svg class="inline w-4 h-4 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -215,25 +177,7 @@
                                             <p class="text-xs text-muted-foreground">PNG, JPG, PDF hasta 10MB cada uno</p>
                                         </div>
                                     </div>
-                                </div>
-
-                                <!-- Información de contacto -->
-                                <div class="bg-muted rounded-lg p-4">
-                                    <h3 class="text-sm font-sans font-medium text-foreground mb-3">Información de Contacto</h3>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <label for="email" class="block text-sm font-medium text-foreground mb-1">Email de Contacto</label>
-                                            <input type="email" id="email" name="email" value="juan.perez@empresa.com" readonly
-                                                   class="w-full px-3 py-2 border border-border rounded-md shadow-sm bg-background/50 text-muted-foreground">
-                                        </div>
-                                        <div>
-                                            <label for="telefono" class="block text-sm font-medium text-foreground mb-1">Teléfono (Opcional)</label>
-                                            <input type="tel" id="telefono" name="telefono"
-                                                   class="w-full px-3 py-2 border border-border rounded-md shadow-sm placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-input text-foreground"
-                                                   placeholder="+1 (555) 123-4567">
-                                        </div>
-                                    </div>
-                                </div>
+                                </div>-->
 
                                 <!-- Botones de acción -->
                                 <div class="flex flex-col sm:flex-row gap-3 pt-6">
@@ -334,3 +278,35 @@
 </script>
 </body>
 </html>
+
+<!-- <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Geist Sans', 'system-ui', 'sans-serif'],
+                        'body': ['Manrope', 'system-ui', 'sans-serif']
+                    },
+                    colors: {
+                        background: '#ffffff',
+                        foreground: '#4b5563',
+                        card: '#f9fafb',
+                        'card-foreground': '#4b5563',
+                        primary: '#0891b2',
+                        'primary-foreground': '#ffffff',
+                        secondary: '#f97316',
+                        'secondary-foreground': '#ffffff',
+                        muted: '#f9fafb',
+                        'muted-foreground': '#4b5563',
+                        accent: '#f97316',
+                        'accent-foreground': '#ffffff',
+                        destructive: '#be123c',
+                        'destructive-foreground': '#ffffff',
+                        border: '#e5e7eb',
+                        input: '#ffffff',
+                        ring: '#0891b2'
+                    }
+                }
+            }
+        }
+    </script>-->

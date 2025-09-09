@@ -33,7 +33,7 @@ public class Ticket {
     @Column(name = "prioridad", nullable = false)
     private String prioridad; //ALTA ,BAJA ,MEDIA
 
-    @Column(name = "estado",nullable = false)
+    @Column(name = "estado")
     private String estado;
 
     @Column(name = "creado_en")

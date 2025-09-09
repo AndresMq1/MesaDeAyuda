@@ -33,11 +33,17 @@ public class IndexController {
 
     @PostMapping("/registro")
     public String crear(@ModelAttribute UsuarioDTO usuariosDTO){
+
+        if (usuarioServicio.buscarPorEmail(usuariosDTO.getEmail()) != null){
+            return "/Usuario/registro?error=true";
+        }
+
         System.out.println(usuariosDTO.getEmail());
         System.out.println(usuariosDTO.getPassword());
         System.out.println(usuariosDTO.getNombre());
         System.out.println(usuariosDTO.getRol());
         usuarioServicio.createUsuario(usuariosDTO);
+
         return "redirect:/login";
     }
 }
