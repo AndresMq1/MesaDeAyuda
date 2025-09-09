@@ -31,10 +31,10 @@ public class Ticket {
     private String descripcion;
 
     @Column(name = "prioridad", nullable = false)
-    private String prioridad;
+    private String prioridad; //ALTA ,BAJA ,MEDIA
 
     @Column(name = "estado",nullable = false)
-    private double estado;
+    private String estado;
 
     @Column(name = "creado_en")
     private LocalDateTime creadoEn;

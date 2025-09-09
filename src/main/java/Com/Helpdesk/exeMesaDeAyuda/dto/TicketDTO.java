@@ -2,6 +2,8 @@ package Com.Helpdesk.exeMesaDeAyuda.dto;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +17,13 @@ public class TicketDTO {
 
     private Long idCategoria;
 
-    private String nombre;
+    private String titulo;
 
-    private String email;
+    private String descripcion;
+
+    private String prioridad;
+
+    private String estado;
+
+    private LocalDateTime creadoEn;
 }

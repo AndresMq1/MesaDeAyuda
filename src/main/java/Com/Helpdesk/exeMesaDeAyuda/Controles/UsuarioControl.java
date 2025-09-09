@@ -1,6 +1,8 @@
 package Com.Helpdesk.exeMesaDeAyuda.Controles;
 
+import Com.Helpdesk.exeMesaDeAyuda.Servicios.TicketServicio;
 import Com.Helpdesk.exeMesaDeAyuda.Servicios.UsuarioServicio;
+import Com.Helpdesk.exeMesaDeAyuda.dto.TicketDTO;
 import Com.Helpdesk.exeMesaDeAyuda.dto.UsuarioDTO;
 import Com.Helpdesk.exeMesaDeAyuda.entidades.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class UsuarioControl {
     @Autowired
     UsuarioServicio usuarioServicio;
 
+    @Autowired
+    TicketServicio ticketServicio;
+
     @GetMapping("/listar")
     public String listar(Model model){
         List<UsuarioDTO> listarUsuario = usuarioServicio.getAllUsuarios();
@@ -28,6 +33,7 @@ public class UsuarioControl {
     @GetMapping("PrincipalCliente")
     public String principal(Model model, Authentication authentication){
         Usuario usuario = usuarioServicio.buscarPorEmail(authentication.getName());
+
         model.addAttribute("nombreAgente", usuario.getNombre());
         return "Cliente/PrincipalClinete";
     }
@@ -36,6 +42,10 @@ public class UsuarioControl {
     public String principalAgente(Model model, Authentication authentication){
         Usuario usuario = usuarioServicio.buscarPorEmail(authentication.getName());
         model.addAttribute("nombreAgente", usuario.getNombre());
+
+        List<TicketDTO> listarTickets = ticketServicio.getAllTickets();
+        model.addAttribute("tickets",listarTickets);
+
         return "Agente/PrincipalA";
     }
 

@@ -139,41 +139,25 @@
                 </div>
                 <div class="p-6">
                     <div class="space-y-4">
-                        <div class="flex items-center justify-between p-4 bg-white rounded-lg border border-border">
+
+
+                        <div th:if="${#lists.isEmpty(tickets)}" class="p-4 bg-yellow-100 text-yellow-800 rounded-lg">
+                            No hay tickets registrados.
+                        </div>
+
+
+                        <div class="flex items-center justify-between p-4 bg-white rounded-lg border border-border" th:each="ticke : ${tickets.subList(0, tickets.size() > 3 ? 3 : tickets.size())}">
                             <div class="flex-1">
                                 <div class="flex items-center space-x-2 mb-1">
-                                    <span class="text-sm font-medium text-card-foreground">#TK-001</span>
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full priority-high">Alta</span>
+                                    <span class="text-sm font-medium text-card-foreground" th:text="'#TK' + ${ticke.idTicket}"></span>
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full priority-high" th:text="${ticke.prioridad}"></span>
                                 </div>
-                                <p class="text-sm text-card-foreground">Problema con sistema de facturación</p>
+                                <p class="text-sm text-card-foreground" th:text="${ticke.titulo}" ></p>
                                 <p class="text-xs text-muted-foreground mt-1">Cliente: María González</p>
                             </div>
                             <i class="fas fa-chevron-right text-muted-foreground"></i>
                         </div>
 
-                        <div class="flex items-center justify-between p-4 bg-white rounded-lg border border-border">
-                            <div class="flex-1">
-                                <div class="flex items-center space-x-2 mb-1">
-                                    <span class="text-sm font-medium text-card-foreground">#TK-002</span>
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full priority-medium">Media</span>
-                                </div>
-                                <p class="text-sm text-card-foreground">Error en aplicación móvil</p>
-                                <p class="text-xs text-muted-foreground mt-1">Cliente: Carlos Ruiz</p>
-                            </div>
-                            <i class="fas fa-chevron-right text-muted-foreground"></i>
-                        </div>
-
-                        <div class="flex items-center justify-between p-4 bg-white rounded-lg border border-border">
-                            <div class="flex-1">
-                                <div class="flex items-center space-x-2 mb-1">
-                                    <span class="text-sm font-medium text-card-foreground">#TK-003</span>
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full priority-low">Baja</span>
-                                </div>
-                                <p class="text-sm text-card-foreground">Consulta sobre funcionalidades</p>
-                                <p class="text-xs text-muted-foreground mt-1">Cliente: Ana López</p>
-                            </div>
-                            <i class="fas fa-chevron-right text-muted-foreground"></i>
-                        </div>
                     </div>
 
                     <div class="mt-4 pt-4 border-t border-border">
