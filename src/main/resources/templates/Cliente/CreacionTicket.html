@@ -188,13 +188,13 @@
                                         </svg>
                                         Enviar Ticket
                                     </button>
-                                    <button type="button"
-                                            class="inline-flex justify-center items-center px-6 py-3 border border-border text-base font-medium rounded-md text-foreground bg-background hover:bg-muted focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
+                                    <a th:href="@{/Usuarios/PrincipalCliente}"
+                                       class="inline-flex justify-center items-center px-6 py-3 border border-border text-base font-medium rounded-md text-foreground bg-background hover:bg-muted focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
                                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                                         </svg>
                                         Cancelar
-                                    </button>
+                                    </a>
                                 </div>
                             </form>
                         </div>
@@ -238,7 +238,7 @@
     </div>
 </div>
 
-<script>
+<!--<script>
     // Drag and drop functionality
     const dropZone = document.querySelector('[class*="border-dashed"]');
     const fileInput = document.getElementById('archivos');
@@ -275,7 +275,7 @@
         const files = dt.files;
         fileInput.files = files;
     }
-</script>
+</script>-->
 </body>
 </html>
 

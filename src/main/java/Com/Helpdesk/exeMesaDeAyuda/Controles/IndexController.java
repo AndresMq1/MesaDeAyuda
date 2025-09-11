@@ -40,7 +40,6 @@ public class IndexController {
             model.addAttribute("usuario",usuariosDTO);
             return "registro";
         }
-
         System.out.println(usuariosDTO.getEmail());
         System.out.println(usuariosDTO.getPassword());
         System.out.println(usuariosDTO.getNombre());

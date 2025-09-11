@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(a -> {
                     a.requestMatchers("/","/registro").permitAll();
                     a.requestMatchers("/Usuarios/PrincipalAgente").hasRole("AGENTE");
-                    a.requestMatchers("/Usuarios/PrincipalCliente").hasRole("CLIENTE");
+                    a.requestMatchers("/Usuarios/PrincipalCliente", "/Ticket/**").hasRole("CLIENTE");
                     a.anyRequest().authenticated();
                 })
                 .formLogin(login -> {

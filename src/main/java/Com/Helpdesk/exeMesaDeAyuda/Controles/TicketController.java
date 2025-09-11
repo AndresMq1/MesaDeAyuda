@@ -34,7 +34,6 @@ public class TicketController {
         List<CategoriaDTO> list = categoriaServicio.getAllCategorias();
         model.addAttribute("listaCate",list);
 
-
         return "Cliente/CreacionTicket";
     }
 
@@ -43,6 +42,11 @@ public class TicketController {
         Usuario usuario = usuarioServicio.buscarPorEmail(authentication.getName());
         ticketServicio.createTicket(ticketDTO ,usuario);
         return "PrincipalCliente";// solocinar el error de clinete a cliente
+   }
+
+   @GetMapping("/MisTicket")
+    public String misTicket(Model model,  Authentication authentication){
+        return ("Cliente/Mistickes");
    }
 
 
