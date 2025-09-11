@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Ticket - Mesa de Ayuda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --primary: #0891b2;
+      --secondary: #ec4899;
+      --background: #ffffff;
+      --foreground: #4b5563;
+      --card: #f9fafb;
+      --border: #d1d5db;
+      --muted: #f9fafb;
+    }
+    .font-work-sans { font-family: 'Work Sans', sans-serif; }
+    .font-open-sans { font-family: 'Open Sans', sans-serif; }
+  </style>
+</head>
+<body class="h-full bg-white font-open-sans">
+<main class="max-w-7xl mx-auto p-6">
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="flex items-center gap-4 mb-4">
+      <button onclick="history.back()" class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors">
+        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+        <span>Volver a Tickets</span>
+      </button>
+    </div>
+    <div class="flex items-center justify-between">
+      <h1 class="text-3xl font-bold text-gray-900 font-work-sans">Gestión de Ticket #TK-2024-001</h1>
+      <div class="flex items-center gap-3">
+        <button class="bg-secondary text-white px-4 py-2 rounded-md hover:bg-secondary/90 transition-colors font-medium">
+          <i data-lucide="clock" class="w-4 h-4 inline mr-2"></i>
+          Historial
+        </button>
+        <button class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 transition-colors font-medium">
+          <i data-lucide="save" class="w-4 h-4 inline mr-2"></i>
+          Guardar Cambios
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Main Content -->
+    <div class="lg:col-span-2 space-y-6">
+      <!-- Ticket Information Card -->
+      <div class="bg-card rounded-lg border border-gray-200 p-6">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4 font-work-sans">Información del Ticket</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Cliente</label>
+              <div class="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-md">
+                <i data-lucide="user" class="w-5 h-5 text-gray-500"></i>
+                <div>
+                  <p class="font-medium text-gray-900">Juan Pérez</p>
+                  <p class="text-sm text-gray-500">juan.perez@empresa.com</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Fecha de Creación</label>
+              <div class="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-md">
+                <i data-lucide="calendar" class="w-5 h-5 text-gray-500"></i>
+                <span class="text-gray-900">15 de Enero, 2024 - 09:30 AM</span>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Categoría</label>
+              <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <option>Soporte Técnico</option>
+                <option>Facturación</option>
+                <option>Cuenta de Usuario</option>
+                <option>Otro</option>
+              </select>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
+              <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <option>Abierto</option>
+                <option selected>En Progreso</option>
+                <option>Esperando Cliente</option>
+                <option>Resuelto</option>
+                <option>Cerrado</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Prioridad</label>
+              <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <option>Baja</option>
+                <option selected>Media</option>
+                <option>Alta</option>
+                <option>Crítica</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Agente Asignado</label>
+              <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <option selected>María González</option>
+                <option>Carlos Rodríguez</option>
+                <option>Ana Martínez</option>
+                <option>Luis Fernández</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-6 border-t border-gray-200">
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Asunto</label>
+            <input
+                    type="text"
+                    value="Problema con el acceso al sistema de facturación"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            >
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Descripción</label>
+            <textarea
+                    rows="4"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+            >No puedo acceder al módulo de facturación desde esta mañana. Aparece un error 500 cuando intento ingresar. He intentado desde diferentes navegadores pero el problema persiste.</textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comments Section -->
+      <div class="bg-card rounded-lg border border-gray-200 p-6">
+        <h2 class="text-xl font-semibold text-gray-900 mb-6 font-work-sans">Conversación</h2>
+
+        <!-- Comment Thread -->
+        <div class="space-y-4 mb-6">
+          <!-- Client Comment -->
+          <div class="flex gap-4">
+            <div class="flex-shrink-0">
+              <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                <i data-lucide="user" class="w-5 h-5 text-gray-600"></i>
+              </div>
+            </div>
+            <div class="flex-1">
+              <div class="bg-white border border-gray-200 rounded-lg p-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-medium text-gray-900">Juan Pérez (Cliente)</span>
+                  <span class="text-sm text-gray-500">Hace 2 horas</span>
+                </div>
+                <p class="text-gray-700">He intentado limpiar el caché del navegador como me sugirieron, pero el problema persiste. ¿Podrían revisar si hay algún problema del lado del servidor?</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Agent Comment -->
+          <div class="flex gap-4">
+            <div class="flex-shrink-0">
+              <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                <i data-lucide="headphones" class="w-5 h-5 text-white"></i>
+              </div>
+            </div>
+            <div class="flex-1">
+              <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-medium text-gray-900">María González (Tú)</span>
+                  <span class="text-sm text-gray-500">Hace 1 hora</span>
+                </div>
+                <p class="text-gray-700">Hola Juan, he revisado los logs del servidor y efectivamente hay un problema con el módulo de facturación. Nuestro equipo técnico ya está trabajando en la solución. Te mantendré informado del progreso.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add Comment Form -->
+        <div class="border-t border-gray-200 pt-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4 font-work-sans">Responder al Cliente</h3>
+          <form class="space-y-4">
+            <div>
+                                <textarea
+                                        rows="4"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+                                        placeholder="Escribe tu respuesta aquí..."
+                                ></textarea>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-4">
+                <button type="button" class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors">
+                  <i data-lucide="paperclip" class="w-4 h-4"></i>
+                  <span class="text-sm">Adjuntar archivo</span>
+                </button>
+                <label class="flex items-center gap-2">
+                  <input type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary">
+                  <span class="text-sm text-gray-600">Respuesta interna</span>
+                </label>
+              </div>
+              <div class="flex items-center gap-3">
+                <button
+                        type="button"
+                        class="bg-secondary text-white px-4 py-2 rounded-md hover:bg-secondary/90 transition-colors font-medium"
+                >
+                  Escalar Ticket
+                </button>
+                <button
+                        type="submit"
+                        class="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary/90 transition-colors font-medium"
+                >
+                  Enviar Respuesta
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="space-y-6">
+      <!-- Quick Actions -->
+      <div class="bg-card rounded-lg border border-gray-200 p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4 font-work-sans">Acciones Rápidas</h3>
+        <div class="space-y-3">
+          <button class="w-full flex items-center gap-3 p-3 text-left hover:bg-gray-50 rounded-md transition-colors">
+            <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
+            <span class="text-gray-700">Marcar como Resuelto</span>
+          </button>
+          <button class="w-full flex items-center gap-3 p-3 text-left hover:bg-gray-50 rounded-md transition-colors">
+            <i data-lucide="user-plus" class="w-5 h-5 text-blue-600"></i>
+            <span class="text-gray-700">Reasignar Ticket</span>
+          </button>
+          <button class="w-full flex items-center gap-3 p-3 text-left hover:bg-gray-50 rounded-md transition-colors">
+            <i data-lucide="alert-triangle" class="w-5 h-5 text-orange-600"></i>
+            <span class="text-gray-700">Cambiar Prioridad</span>
+          </button>
+          <button class="w-full flex items-center gap-3 p-3 text-left hover:bg-gray-50 rounded-md transition-colors">
+            <i data-lucide="merge" class="w-5 h-5 text-purple-600"></i>
+            <span class="text-gray-700">Fusionar Tickets</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Ticket Timeline -->
+      <div class="bg-card rounded-lg border border-gray-200 p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4 font-work-sans">Línea de Tiempo</h3>
+        <div class="space-y-4">
+          <div class="flex gap-3">
+            <div class="flex-shrink-0 w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+            <div>
+              <p class="text-sm font-medium text-gray-900">Ticket creado</p>
+              <p class="text-xs text-gray-500">15 Ene, 09:30 AM</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <div class="flex-shrink-0 w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+            <div>
+              <p class="text-sm font-medium text-gray-900">Asignado a María González</p>
+              <p class="text-xs text-gray-500">15 Ene, 10:15 AM</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <div class="flex-shrink-0 w-2 h-2 bg-orange-500 rounded-full mt-2"></div>
+            <div>
+              <p class="text-sm font-medium text-gray-900">Estado cambiado a "En Progreso"</p>
+              <p class="text-xs text-gray-500">15 Ene, 11:00 AM</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <div class="flex-shrink-0 w-2 h-2 bg-gray-400 rounded-full mt-2"></div>
+            <div>
+              <p class="text-sm font-medium text-gray-900">Comentario del cliente</p>
+              <p class="text-xs text-gray-500">15 Ene, 02:30 PM</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related Tickets -->
+      <div class="bg-card rounded-lg border border-gray-200 p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4 font-work-sans">Tickets Relacionados</h3>
+        <div class="space-y-3">
+          <div class="p-3 bg-white border border-gray-200 rounded-md">
+            <p class="text-sm font-medium text-gray-900">#TK-2024-002</p>
+            <p class="text-xs text-gray-500">Error de conexión - Resuelto</p>
+          </div>
+          <div class="p-3 bg-white border border-gray-200 rounded-md">
+            <p class="text-sm font-medium text-gray-900">#TK-2023-156</p>
+            <p class="text-xs text-gray-500">Problema de facturación - Cerrado</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  lucide.createIcons();
+</script>
+</body>
+</html>

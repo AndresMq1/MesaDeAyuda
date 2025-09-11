@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(a -> {
                     a.requestMatchers("/","/registro").permitAll();
                     a.requestMatchers("/Usuarios/PrincipalAgente").hasRole("AGENTE");
-                a.requestMatchers("/Usuarios/PrincipalCliente").hasRole("CLIENTE");
+                    a.requestMatchers("/Usuarios/PrincipalCliente").hasRole("CLIENTE");
                     a.anyRequest().authenticated();
                 })
                 .formLogin(login -> {
@@ -41,9 +41,8 @@ public class SecurityConfig {
                 })
                 .logout(logout -> {
                     logout
-
                             .logoutUrl("/logout")
-                            .logoutSuccessUrl("/Usuarios/login?logout=true")
+                            .logoutSuccessUrl("/index?logout=true")
                             .invalidateHttpSession(true)
                             .clearAuthentication(true)
                             .permitAll();

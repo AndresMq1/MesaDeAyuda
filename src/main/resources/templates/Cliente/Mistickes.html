@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Tickets - Mesa de Ayuda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap');
+
+        :root {
+            --background: #ffffff;
+            --foreground: #475569;
+            --card: #f1f5f9;
+            --card-foreground: #475569;
+            --primary: #059669;
+            --primary-foreground: #ffffff;
+            --secondary: #10b981;
+            --secondary-foreground: #ffffff;
+            --muted: #ecfeff;
+            --muted-foreground: #475569;
+            --accent: #10b981;
+            --accent-foreground: #ffffff;
+            --destructive: #e53e3e;
+            --destructive-foreground: #ffffff;
+            --border: #d1d5db;
+            --radius: 0.5rem;
+        }
+
+        .font-space-grotesk { font-family: 'Space Grotesk', sans-serif; }
+        .font-dm-sans { font-family: 'DM Sans', sans-serif; }
+
+        .bg-primary { background-color: var(--primary); }
+        .text-primary { color: var(--primary); }
+        .bg-secondary { background-color: var(--secondary); }
+        .text-secondary { color: var(--secondary); }
+        .bg-card { background-color: var(--card); }
+        .text-card-foreground { color: var(--card-foreground); }
+        .bg-muted { background-color: var(--muted); }
+        .text-muted-foreground { color: var(--muted-foreground); }
+        .border-border { border-color: var(--border); }
+
+        .status-open { background-color: #fef3c7; color: #92400e; }
+        .status-progress { background-color: #dbeafe; color: #1e40af; }
+        .status-resolved { background-color: #d1fae5; color: #065f46; }
+        .status-closed { background-color: #f3f4f6; color: #374151; }
+
+        .priority-high { border-left: 4px solid #ef4444; }
+        .priority-medium { border-left: 4px solid #f59e0b; }
+        .priority-low { border-left: 4px solid #10b981; }
+    </style>
+</head>
+<body class="bg-white font-dm-sans">
+<!-- Main Content -->
+<main class="p-6 max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-space-grotesk font-bold text-card-foreground">Mis Tickets</h1>
+                <p class="text-muted-foreground mt-1">Gestiona y da seguimiento a tus solicitudes de soporte</p>
+            </div>
+            <button class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-colors">
+                <i class="fas fa-plus mr-2"></i>
+                Nuevo Ticket
+            </button>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div class="bg-card rounded-lg p-6 border border-border">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-muted-foreground">Total</p>
+                    <p class="text-2xl font-space-grotesk font-bold text-card-foreground">20</p>
+                </div>
+                <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-ticket-alt text-gray-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-card rounded-lg p-6 border border-border">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-muted-foreground">Abiertos</p>
+                    <p class="text-2xl font-space-grotesk font-bold text-card-foreground">3</p>
+                </div>
+                <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-clock text-yellow-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-card rounded-lg p-6 border border-border">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-muted-foreground">En Progreso</p>
+                    <p class="text-2xl font-space-grotesk font-bold text-card-foreground">2</p>
+                </div>
+                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-cog text-blue-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-card rounded-lg p-6 border border-border">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-muted-foreground">Resueltos</p>
+                    <p class="text-2xl font-space-grotesk font-bold text-card-foreground">15</p>
+                </div>
+                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-check-circle text-green-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters and Search -->
+    <div class="bg-card rounded-lg border border-border p-6 mb-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="flex flex-col sm:flex-row gap-4">
+                <div class="relative">
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"></i>
+                    <input type="text" placeholder="Buscar tickets..." class="pl-10 pr-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                </div>
+                <select class="px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    <option value="">Todos los estados</option>
+                    <option value="open">Abierto</option>
+                    <option value="progress">En Progreso</option>
+                    <option value="resolved">Resuelto</option>
+                    <option value="closed">Cerrado</option>
+                </select>
+                <select class="px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    <option value="">Todas las prioridades</option>
+                    <option value="high">Alta</option>
+                    <option value="medium">Media</option>
+                    <option value="low">Baja</option>
+                </select>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button class="p-2 text-card-foreground hover:bg-muted rounded-lg transition-colors">
+                    <i class="fas fa-filter"></i>
+                </button>
+                <button class="p-2 text-card-foreground hover:bg-muted rounded-lg transition-colors">
+                    <i class="fas fa-download"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tickets List -->
+    <div class="bg-card rounded-lg border border-border">
+        <div class="p-6 border-b border-border">
+            <h2 class="text-lg font-space-grotesk font-semibold text-card-foreground">Lista de Tickets</h2>
+        </div>
+        <div class="divide-y divide-border">
+            <!-- Ticket Item -->
+            <div class="p-6 hover:bg-muted transition-colors priority-high">
+                <div class="flex items-start justify-between">
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <span class="text-lg font-space-grotesk font-semibold text-card-foreground">#TK-001</span>
+                            <span class="px-3 py-1 text-sm font-medium rounded-full status-open">Abierto</span>
+                            <span class="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">Alta</span>
+                        </div>
+                        <h3 class="text-lg font-medium text-card-foreground mb-2">Problema con acceso al sistema de facturación</h3>
+                        <p class="text-muted-foreground mb-3">No puedo acceder al módulo de facturación desde esta mañana. El sistema me muestra un error 500 cuando intento ingresar.</p>
+                        <div class="flex items-center space-x-6 text-sm text-muted-foreground">
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Creado: 15 Nov 2024</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-user"></i>
+                                <span>Asignado a: María González</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-tag"></i>
+                                <span>Técnico</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 ml-4">
+                        <button class="p-2 text-primary hover:bg-primary hover:text-white rounded-lg transition-colors">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="p-2 text-card-foreground hover:bg-muted rounded-lg transition-colors">
+                            <i class="fas fa-comment"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticket Item -->
+            <div class="p-6 hover:bg-muted transition-colors priority-medium">
+                <div class="flex items-start justify-between">
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <span class="text-lg font-space-grotesk font-semibold text-card-foreground">#TK-002</span>
+                            <span class="px-3 py-1 text-sm font-medium rounded-full status-progress">En Progreso</span>
+                            <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Media</span>
+                        </div>
+                        <h3 class="text-lg font-medium text-card-foreground mb-2">Error en la aplicación móvil al cargar reportes</h3>
+                        <p class="text-muted-foreground mb-3">La aplicación móvil se cierra inesperadamente cuando intento cargar los reportes mensuales.</p>
+                        <div class="flex items-center space-x-6 text-sm text-muted-foreground">
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Creado: 14 Nov 2024</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-user"></i>
+                                <span>Asignado a: Carlos Ruiz</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-tag"></i>
+                                <span>Aplicación</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 ml-4">
+                        <button class="p-2 text-primary hover:bg-primary hover:text-white rounded-lg transition-colors">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="p-2 text-card-foreground hover:bg-muted rounded-lg transition-colors">
+                            <i class="fas fa-comment"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticket Item -->
+            <div class="p-6 hover:bg-muted transition-colors priority-low">
+                <div class="flex items-start justify-between">
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <span class="text-lg font-space-grotesk font-semibold text-card-foreground">#TK-003</span>
+                            <span class="px-3 py-1 text-sm font-medium rounded-full status-resolved">Resuelto</span>
+                            <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Baja</span>
+                        </div>
+                        <h3 class="text-lg font-medium text-card-foreground mb-2">Solicitud de nueva funcionalidad en dashboard</h3>
+                        <p class="text-muted-foreground mb-3">Me gustaría que se agregue un filtro por fechas en el dashboard principal para mejorar la visualización de datos.</p>
+                        <div class="flex items-center space-x-6 text-sm text-muted-foreground">
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Creado: 12 Nov 2024</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-user"></i>
+                                <span>Resuelto por: Ana López</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-tag"></i>
+                                <span>Mejora</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 ml-4">
+                        <button class="p-2 text-primary hover:bg-primary hover:text-white rounded-lg transition-colors">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="p-2 text-card-foreground hover:bg-muted rounded-lg transition-colors">
+                            <i class="fas fa-star"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticket Item -->
+            <div class="p-6 hover:bg-muted transition-colors priority-medium">
+                <div class="flex items-start justify-between">
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <span class="text-lg font-space-grotesk font-semibold text-card-foreground">#TK-004</span>
+                            <span class="px-3 py-1 text-sm font-medium rounded-full status-closed">Cerrado</span>
+                            <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Media</span>
+                        </div>
+                        <h3 class="text-lg font-medium text-card-foreground mb-2">Consulta sobre configuración de notificaciones</h3>
+                        <p class="text-muted-foreground mb-3">¿Cómo puedo configurar las notificaciones por email para recibir alertas de nuevos mensajes?</p>
+                        <div class="flex items-center space-x-6 text-sm text-muted-foreground">
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Creado: 10 Nov 2024</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-user"></i>
+                                <span>Resuelto por: Pedro Martín</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-tag"></i>
+                                <span>Consulta</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 ml-4">
+                        <button class="p-2 text-primary hover:bg-primary hover:text-white rounded-lg transition-colors">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="p-2 text-card-foreground hover:bg-muted rounded-lg transition-colors">
+                            <i class="fas fa-archive"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="p-6 border-t border-border">
+            <div class="flex items-center justify-between">
+                <div class="text-sm text-muted-foreground">
+                    Mostrando 1-4 de 20 tickets
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button class="px-3 py-2 text-sm font-medium text-card-foreground bg-white border border-border rounded-lg hover:bg-muted transition-colors">
+                        Anterior
+                    </button>
+                    <button class="px-3 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-opacity-90 transition-colors">
+                        1
+                    </button>
+                    <button class="px-3 py-2 text-sm font-medium text-card-foreground bg-white border border-border rounded-lg hover:bg-muted transition-colors">
+                        2
+                    </button>
+                    <button class="px-3 py-2 text-sm font-medium text-card-foreground bg-white border border-border rounded-lg hover:bg-muted transition-colors">
+                        3
+                    </button>
+                    <button class="px-3 py-2 text-sm font-medium text-card-foreground bg-white border border-border rounded-lg hover:bg-muted transition-colors">
+                        Siguiente
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

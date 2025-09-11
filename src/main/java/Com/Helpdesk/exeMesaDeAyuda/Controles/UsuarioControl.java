@@ -33,9 +33,13 @@ public class UsuarioControl {
     @GetMapping("PrincipalCliente")
     public String principal(Model model, Authentication authentication){
         Usuario usuario = usuarioServicio.buscarPorEmail(authentication.getName());
-
         model.addAttribute("nombreAgente", usuario.getNombre());
-        return "Cliente/PrincipalClinete";
+
+        Usuario usuarip = usuarioServicio.buscarPorEmail(authentication.getName());
+        model.addAttribute("listaUsuario",usuarip.getTickets());
+
+
+        return "Cliente/PrincipalCliente";
     }
 
     @GetMapping("PrincipalAgente")

@@ -17,7 +17,7 @@ public class IndexController {
         this.usuarioServicio = usuarioServicio;
     }
 
-    @GetMapping("/")
+    @GetMapping("/index")
     public String index() {
         return "index"; // Carga templates/index.html
     }
@@ -25,6 +25,7 @@ public class IndexController {
     public String login(){
         return "login";
     }
+
     @GetMapping("/registro")
     public String registro(Model model){
         model.addAttribute("usuario", new UsuarioDTO());
@@ -32,10 +33,12 @@ public class IndexController {
     }
 
     @PostMapping("/registro")
-    public String crear(@ModelAttribute UsuarioDTO usuariosDTO){
+    public String crear(@ModelAttribute UsuarioDTO usuariosDTO, Model model){
 
         if (usuarioServicio.buscarPorEmail(usuariosDTO.getEmail()) != null){
-            return "/Usuario/registro?error=true";
+            model.addAttribute("error","Este Correo ya esta rejistrado");
+            model.addAttribute("usuario",usuariosDTO);
+            return "registro";
         }
 
         System.out.println(usuariosDTO.getEmail());

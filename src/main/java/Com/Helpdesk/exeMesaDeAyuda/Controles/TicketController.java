@@ -1,12 +1,10 @@
 package Com.Helpdesk.exeMesaDeAyuda.Controles;
 
-import Com.Helpdesk.exeMesaDeAyuda.Repositorio.UsuarioRepositorio;
 import Com.Helpdesk.exeMesaDeAyuda.Servicios.CategoriaServicio;
 import Com.Helpdesk.exeMesaDeAyuda.Servicios.TicketServicio;
 import Com.Helpdesk.exeMesaDeAyuda.Servicios.UsuarioServicio;
 import Com.Helpdesk.exeMesaDeAyuda.dto.CategoriaDTO;
 import Com.Helpdesk.exeMesaDeAyuda.dto.TicketDTO;
-import Com.Helpdesk.exeMesaDeAyuda.entidades.Categoria;
 import Com.Helpdesk.exeMesaDeAyuda.entidades.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -36,8 +34,6 @@ public class TicketController {
         List<CategoriaDTO> list = categoriaServicio.getAllCategorias();
         model.addAttribute("listaCate",list);
 
-        Usuario usuarip = usuarioServicio.buscarPorEmail(authentication.getName());
-        model.addAttribute("listaUsuario",usuarip.getTickets());
 
         return "Cliente/CreacionTicket";
     }
@@ -46,7 +42,7 @@ public class TicketController {
     public String registrarTik2(@ModelAttribute TicketDTO ticketDTO , Authentication  authentication){
         Usuario usuario = usuarioServicio.buscarPorEmail(authentication.getName());
         ticketServicio.createTicket(ticketDTO ,usuario);
-        return "Cliente/PrincipalClinete";// solocinar el error de clinete a cliente
+        return "PrincipalCliente";// solocinar el error de clinete a cliente
    }
 
 
