@@ -4,6 +4,7 @@ import Com.Helpdesk.exeMesaDeAyuda.Servicios.TicketServicio;
 import Com.Helpdesk.exeMesaDeAyuda.Servicios.UsuarioServicio;
 import Com.Helpdesk.exeMesaDeAyuda.dto.TicketDTO;
 import Com.Helpdesk.exeMesaDeAyuda.dto.UsuarioDTO;
+import Com.Helpdesk.exeMesaDeAyuda.entidades.Ticket;
 import Com.Helpdesk.exeMesaDeAyuda.entidades.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -33,10 +34,10 @@ public class UsuarioControl {
     @GetMapping("PrincipalCliente")
     public String principal(Model model, Authentication authentication){
         Usuario usuario = usuarioServicio.buscarPorEmail(authentication.getName());
-        model.addAttribute("nombreAgente", usuario.getNombre());
+        model.addAttribute("nombreCliente", usuario.getNombre());
 
         Usuario usuarip = usuarioServicio.buscarPorEmail(authentication.getName());
-        model.addAttribute("listaUsuario",usuarip.getTickets());
+        model.addAttribute("listaTicket",usuarip.getTickets());
 
 
         return "Cliente/PrincipalCliente";
@@ -47,8 +48,16 @@ public class UsuarioControl {
         Usuario usuario = usuarioServicio.buscarPorEmail(authentication.getName());
         model.addAttribute("nombreAgente", usuario.getNombre());
 
+        /*lista todos los ticket en la base de datos
         List<TicketDTO> listarTickets = ticketServicio.getAllTickets();
-        model.addAttribute("tickets",listarTickets);
+        model.addAttribute("tickets",listarTickets);*/
+
+        List<TicketDTO> listaTictekAsi = ticketServicio.getTicketsAsignados(usuario);
+        model.addAttribute("tickesAsignados",listaTictekAsi);
+
+        //lista los ticket que no tiene agente
+        List<TicketDTO> listaTicketSinA = ticketServicio.getSinAsignarTickets();
+        model.addAttribute("listaTicketSinA",listaTicketSinA);
 
         return "Agente/PrincipalA";
     }
@@ -77,5 +86,22 @@ public class UsuarioControl {
         usuarioServicio.deleteUsuario(id);
         return "redirect:/Usuarios/listar";
     }
+
+    /*@GetMapping("/ListaTicketSinA")
+    public String listaTicketSinA(Model model){
+        List<TicketDTO> listaTicketSinA = ticketServicio.getSinAsignarTickets();
+        model.addAttribute("listaTicketSinA",listaTicketSinA);
+        return "Agente/PrincipalA";
+    }*/
+
+    @PostMapping("/AsignarT")
+    public String asignarTicket(@RequestParam("ticketSelection") Long id, Authentication authentication){
+        Usuario usuario = usuarioServicio.buscarPorEmail(authentication.getName());
+        ticketServicio.asignarTicket(id, usuario);
+        return "redirect:/Usuarios/PrincipalAgente";
+
+    }
+
+
 
 }

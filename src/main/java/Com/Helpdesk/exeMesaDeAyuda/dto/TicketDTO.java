@@ -15,6 +15,12 @@ public class TicketDTO {
 
     private Long idUsuario;
 
+    private String nombreCliente;
+
+    private String IdAgenteAsignado;
+
+    private String nombreAgenteAsignado;
+
     private Long idCategoria;
 
     private String titulo;
@@ -26,4 +32,6 @@ public class TicketDTO {
     private String estado;
 
     private LocalDateTime creadoEn;
+
+    private UsuarioDTO cliente;
 }

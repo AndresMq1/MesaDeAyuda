@@ -19,6 +19,12 @@ public class Ticket {
     @JoinColumn(name = "IdUsuario", nullable = false)
     private Usuario usuario;
 
+    //lo ponemos para saber quien crea el ticke
+    @ManyToOne
+    @JoinColumn(name = "IdAgenteAsignado")
+    private Usuario agenteAsignado;
+
+
     //Aca declaramos el id_categotia
     @ManyToOne
     @JoinColumn(name = "IdCategoria",nullable = false)

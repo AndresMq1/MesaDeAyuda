@@ -63,18 +63,6 @@
                 <h1 class="text-2xl font-space-grotesk font-bold text-card-foreground" th:text="'Bienvenido: ' + ${nombreAgente}"></h1>
                 <p class="text-sm text-muted-foreground">Gestiona tickets de soporte como agente</p>
             </div>
-            <div class="flex items-center space-x-4">
-                <div class="relative">
-                    <button class="p-2 text-card-foreground hover:bg-muted rounded-lg transition-colors">
-                        <i class="fas fa-bell text-lg"></i>
-                        <span class="absolute -top-1 -right-1 w-3 h-3 bg-destructive rounded-full"></span>
-                    </button>
-                </div>
-                <button class="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-opacity-90 transition-colors">
-                    <i class="fas fa-plus mr-2"></i>
-                    Asignar Ticket
-                </button>
-            </div>
         </div>
     </header>
 
@@ -141,21 +129,24 @@
                     <div class="space-y-4">
 
 
-                        <div th:if="${#lists.isEmpty(tickets)}" class="p-4 bg-yellow-100 text-yellow-800 rounded-lg">
+                        <div th:if="${#lists.isEmpty(tickesAsignados)}" class="p-4 bg-yellow-100 text-yellow-800 rounded-lg">
                             No hay tickets registrados.
                         </div>
 
 
-                        <div class="flex items-center justify-between p-4 bg-white rounded-lg border border-border" th:each="ticke : ${tickets.subList(0, tickets.size() > 3 ? 3 : tickets.size())}">
+                        <!--${tickets.subList(0, tickets.size() > 3 ? 3 : tickets.size())-->
+                        <div class="flex items-center justify-between p-4 bg-white rounded-lg border border-border" th:each="ticke : ${tickesAsignados}">
                             <div class="flex-1">
                                 <div class="flex items-center space-x-2 mb-1">
                                     <span class="text-sm font-medium text-card-foreground" th:text="'#TK' + ${ticke.idTicket}"></span>
                                     <span class="px-2 py-1 text-xs font-medium rounded-full priority-high" th:text="${ticke.prioridad}"></span>
                                 </div>
                                 <p class="text-sm text-card-foreground" th:text="${ticke.titulo}" ></p>
-                                <p class="text-xs text-muted-foreground mt-1">Cliente: María González</p>
+                                <p class="text-xs text-muted-foreground mt-1" th:text="${ticke.nombreCliente}" >Cliente: María González</p>
                             </div>
+                            <a>
                             <i class="fas fa-chevron-right text-muted-foreground"></i>
+                            </a>
                         </div>
 
                     </div>
@@ -177,14 +168,11 @@
                     </div>
                     <div class="p-6">
                         <div class="grid grid-cols-2 gap-4">
-                            <button class="flex flex-col items-center p-4 bg-primary text-white rounded-lg hover:bg-opacity-90 transition-colors">
+                            <button onclick="openAssignModal()" class="flex flex-col items-center p-4 bg-primary text-white rounded-lg hover:bg-opacity-90 transition-colors">
                                 <i class="fas fa-plus text-2xl mb-2"></i>
                                 <span class="text-sm font-medium">Asignar Ticket</span>
                             </button>
-                            <button class="flex flex-col items-center p-4 bg-secondary text-white rounded-lg hover:bg-opacity-90 transition-colors">
-                                <i class="fas fa-arrow-up text-2xl mb-2"></i>
-                                <span class="text-sm font-medium">Escalar</span>
-                            </button>
+
                             <button class="flex flex-col items-center p-4 bg-white border border-border text-card-foreground rounded-lg hover:bg-muted transition-colors">
                                 <i class="fas fa-search text-2xl mb-2"></i>
                                 <span class="text-sm font-medium">Buscar Cliente</span>
@@ -232,5 +220,139 @@
         </div>
     </main>
 </div>
+
+<!-- Modal Overlay -->
+<div id="assignModal" class="fixed inset-0 z-50 hidden" style="background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px);">
+    <div class="flex items-center justify-center min-h-screen px-4">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl" style="animation: modalSlideIn 0.3s ease-out;">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-6 border-b border-gray-200">
+                <h3 class="text-lg font-space-grotesk font-semibold text-gray-700">Asignar Ticket Disponible</h3>
+                <button onclick="closeAssignModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+
+            <form th:action="@{/Usuarios/AsignarT}" method="post" id="asignarForm">
+            <div class="p-6">
+                <div class="mb-4">
+                    <p class="text-sm text-gray-600">Selecciona un ticket para asignarte:</p>
+                </div>
+
+
+                <div th:if="${#lists.isEmpty(listaTicketSinA)}" class="p-4 bg-yellow-100 text-yellow-800 rounded-lg">
+                    No hay tickets registrados.
+                </div>
+
+                <!-- Available Tickets List -->
+                <div class="space-y-3 max-h-96 overflow-y-auto" th:each="tickSA : ${listaTicketSinA}" >
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors">
+                        <div class="flex items-center space-x-3">
+                            <input th:value="${tickSA.idTicket}" type="radio" name="ticketSelection" id="ticket1" class="w-4 h-4 text-emerald-600 bg-white border-gray-300 focus:ring-emerald-500 focus:ring-2">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <span class="text-sm font-medium text-gray-700" th:text="'#TK'+${tickSA.idTicket}">#TK-</span>
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800" th:text="${tickSA.prioridad}"></span>
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-800" th:text="${tickSA.estado}">Abierto</span>
+                                </div>
+                                <p class="text-sm text-gray-700" th:text="${tickSA.titulo}" >Sistema de pagos no responde</p>
+                                <p class="text-xs text-gray-500" th:text="'Cliente: '+${tickSA.nombreCliente}">• Creado hace 2 horas</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="flex items-center justify-between p-6 border-t border-gray-200">
+                <div class="text-sm text-gray-600">
+                    <span id="selectedTicket">Ningún ticket seleccionado</span>
+                </div>
+                <div class="flex space-x-3">
+                    <button type="submit" onclick="assignSelectedTicket()" class="px-4 py-2 text-sm font-medium text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 transition-colors">
+                        <i class="fas fa-check mr-2"></i>
+                        Asignar Ticket
+                    </button>
+                </div>
+            </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for modal functionality -->
+<script>
+    function openAssignModal() {
+        document.getElementById('assignModal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeAssignModal() {
+        document.getElementById('assignModal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+        const radioButtons = document.querySelectorAll('#assignModal input[type="radio"]');
+        radioButtons.forEach(radio => radio.checked = false);
+        updateSelectedTicket();
+    }
+
+    function assignSelectedTicket() {
+        const selectedRadio = document.querySelector('input[name="ticketSelection"]:checked');
+
+        if (selectedRadio) {
+            const ticketId = selectedRadio.value;
+            document.getElementById('hiddenTicketId').value = ticketId;
+            document.getElementById('asignarFormReal').submit(); // ← envío manual
+        } else {
+            alert('Por favor selecciona un ticket para asignar.');
+        }
+    }
+
+
+    function updateSelectedTicket() {
+        const selectedRadio = document.querySelector('#assignModal input[type="radio"]:checked');
+        const selectedTicketElement = document.getElementById('selectedTicket');
+
+        if (selectedRadio) {
+            const ticketRow = selectedRadio.closest('.flex');
+            const ticketId = ticketRow.querySelector('.text-sm.font-medium').textContent;
+            selectedTicketElement.textContent = `Ticket seleccionado: ${ticketId}`;
+        } else {
+            selectedTicketElement.textContent = 'Ningún ticket seleccionado';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const radioButtons = document.querySelectorAll('#assignModal input[type="radio"]');
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', updateSelectedTicket);
+        });
+    });
+
+    document.getElementById('assignModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeAssignModal();
+        }
+    });
+
+    // CSS animation for modal
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    `;
+    document.head.appendChild(style);
+</script>
 </body>
 </html>

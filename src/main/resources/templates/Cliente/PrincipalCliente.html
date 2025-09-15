@@ -58,7 +58,7 @@
     <header class="bg-white border-b border-border px-6 py-4">
         <div class="flex items-center justify-between">
             <div>
-                <h1 class="text-2xl font-space-grotesk font-bold text-card-foreground" th:text="'Bienvenido: ' + ${nombreAgente}"></h1>
+                <h1 class="text-2xl font-space-grotesk font-bold text-card-foreground" th:text="'Bienvenido: ' + ${nombreCliente}"></h1>
                 <p class="text-sm text-muted-foreground">Gestiona tus tickets de soporte técnico</p>
             </div>
             <div class="flex items-center space-x-4" >
@@ -137,7 +137,7 @@
                 </div>
                 <div class="p-6">
                     <div class="space-y-4">
-                        <div th:each="tick : ${listaUsuario}" class="flex items-center justify-between p-4 bg-white rounded-lg border border-border">
+                        <div th:each="tick : ${listaTicket}" class="flex items-center justify-between p-4 bg-white rounded-lg border border-border">
                             <div class="flex-1">
                                 <div class="flex items-center space-x-2 mb-1">
                                     <span class="text-sm font-medium text-card-foreground" th:text="${tick.idTicket}" ></span>
